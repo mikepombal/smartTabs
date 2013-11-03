@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>smartTabs Unit Testing</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="vendors/mocha/mocha.css" />   
+    </head>
+
+
+    <body>
+        <div id="mocha"></div>
+
+
+        <script type="text/javascript" src="vendors/mocha/mocha.js"></script>
+        <script type="text/javascript" src="vendors/chai/chai.js"></script>
+        <script type="text/javascript">
+            mocha.setup('bdd');
+            chai.should();
+        </script>
+        <script type="text/javascript" src="../../client/vendors/jquery/jquery-1.10.2.js"></script>
+        <script type="text/javascript" src="../../client/js/jquery.smartTabs.js"></script>
+        <script type="text/javascript" src="js/spec-smartTabs.js"></script>
+        <script type="text/javascript">
+            mocha.run();
+        </script>
+
+
+
+    </body>
+</html>
