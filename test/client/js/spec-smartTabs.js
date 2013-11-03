@@ -1,11 +1,11 @@
-/*global describe, it*/
+/*global jQuery, describe, it*/
 
-(function () {
+(function ($) {
     'use strict';
 
-    describe('smartTab', function () {
-        describe('Dom Manipulation', function () {
-            it('Should Test Dom Manipulation');
+    describe('smartTabs', function () {
+        it('Should exist a jQuery plugin called smartTabs', function () {
+            $.fn.smartTabs.should.be.a('function');
         });
     });
-}());
+}(jQuery));
