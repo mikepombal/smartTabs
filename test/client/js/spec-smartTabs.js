@@ -11,7 +11,7 @@
             });
         });
 
-        describe('DOM', function () {
+        describe('DOM structure', function () {
             beforeEach(function () {
                 $('body').append('<div class="myTestDiv"><div>');
             });
@@ -20,15 +20,25 @@
             });
 
 
-            it('Should create a div with the css class smartTabsSystem', function () {
+            it('Should create a div element with the css class smartTabsSystem', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('.myTestDiv > .smartTabsSystem').should.have.length(1);
+                $('div.myTestDiv > div.smartTabsSystem').should.have.length(1);
             });
-            it('Should create a div with the css class smartTabsHeader children of smartTabsSystem', function () {
+            it('Should create a div element with the css class smartTabsHeader children of smartTabsSystem', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('.smartTabsSystem > .smartTabsHeader').should.have.length(1);
+                $('div.smartTabsSystem > div.smartTabsHeader').should.have.length(1);
+            });
+            it('Should create a li element with the css class smartTabsList children of smartTabsHeader', function () {
+                $('.myTestDiv').smartTabs();
+
+                $('div.smartTabsHeader > li.smartTabsHeader').should.have.length(1);
+            });
+            it('Should create a div element with the css class smartTabsBody children of smartTabsSystem', function () {
+                $('.myTestDiv').smartTabs();
+
+                $('div.smartTabsSystem > div.smartTabsBody').should.have.length(1);
             });
         });
     });
