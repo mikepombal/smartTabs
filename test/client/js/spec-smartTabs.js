@@ -23,23 +23,50 @@
             it('Should create a div element with the css class smartTabsSystem', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('div.myTestDiv > div.smartTabsSystem').should.have.length(1);
+                $('.myTestDiv > div.smartTabsSystem').should.have.length(1);
             });
             it('Should create a div element with the css class smartTabsHeader children of smartTabsSystem', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('div.smartTabsSystem > div.smartTabsHeader').should.have.length(1);
+                $('.smartTabsSystem > div.smartTabsHeader').should.have.length(1);
             });
-            it('Should create a li element with the css class smartTabsList children of smartTabsHeader', function () {
+            it('Should create a ul element with the css class smartTabsList children of smartTabsHeader', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('div.smartTabsHeader > li.smartTabsHeader').should.have.length(1);
+                $('.smartTabsHeader > ul.smartTabsList').should.have.length(1);
             });
             it('Should create a div element with the css class smartTabsBody children of smartTabsSystem', function () {
                 $('.myTestDiv').smartTabs();
 
-                $('div.smartTabsSystem > div.smartTabsBody').should.have.length(1);
+                $('.smartTabsSystem > div.smartTabsBody').should.have.length(1);
             });
+
+
+            it('Should create li elements', function () {
+                /**
+                 * For every elements coming in the arguments
+                 * a li element should be created with the class name smartTabsTabTitle
+                 * children of smartTabsList and contain the title
+                 * 
+                 */
+                var option = [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' },
+                    { title: 'Tab 4' }
+                ];
+
+                $('.myTestDiv').smartTabs(option);
+
+
+                $('.smartTabsList > li.smartTabsTabTitle').should.have.length(4);
+                $('.smartTabsTabTitle:nth-child(1)').text().should.equal('Tab 1');
+                $('.smartTabsTabTitle:nth-child(2)').text().should.equal('Tab 2');
+                $('.smartTabsTabTitle:nth-child(3)').text().should.equal('Tab 3');
+                $('.smartTabsTabTitle:nth-child(4)').text().should.equal('Tab 4');
+            });
+
+
         });
     });
 }(jQuery));
