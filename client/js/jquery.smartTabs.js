@@ -17,6 +17,7 @@
 
         for (i = 0; i < listTabs.length; i += 1) {
             $('.smartTabsList').append('<li class="smartTabsTabTitle">' + listTabs[i].title + '</li>');
+            $('.smartTabsBody').append('<div class="smartTabsContent">' + $('#' + listTabs[i].templateId).html() + '</div>');
         }
     }
 
