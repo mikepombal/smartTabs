@@ -12,7 +12,7 @@
         $el.append(html);
     }
 
-    function createTabs(listTabs) {
+    function createTabs($el, listTabs) {
         var i,
             htmlTitles = '',
             htmlContents = '';
@@ -27,8 +27,8 @@
             htmlContents += '<div class="smartTabsContent">' + $('#' + listTabs[i].templateId).html() + '</div>';
         }
 
-        $('.smartTabsList').append(htmlTitles);
-        $('.smartTabsBody').append(htmlContents);
+        $el.find('.smartTabsList').append(htmlTitles);
+        $el.find('.smartTabsBody').append(htmlContents);
 
     }
 
@@ -37,7 +37,7 @@
 
         initHtml($this);
 
-        createTabs(options || []);
+        createTabs($this, options || []);
 
     };
 
