@@ -97,6 +97,24 @@
 
             });
 
+            it('should define the first tab as active', function () {
+                /**
+                 * The tab being active should get the smartTabsActive css class
+                 */
+
+                var options = [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ];
+
+                $('.myTestDiv').smartTabs(options);
+
+                $('.myTestDiv .smartTabsActive').should.have.length(1);
+                $('.smartTabsTabTitle:nth-child(1).smartTabsActive').should.have.length(1);
+
+            });
+
         });
     });
 }(jQuery));
