@@ -4,6 +4,7 @@
 // Component Colours
 @headerColor: #555555;
 @activeColor: #FFFFFF;
+@hoverColor: darken(@activeColor, 10%);
 @secondColor: darken(@activeColor, 20%);
 
 
@@ -27,6 +28,7 @@
             background-color: @activeColor;
             position: absolute;
             z-index: 2;
+            .drop-shadow(0; -0.1em; 0.1em; 0.3);
         }
     }
 
@@ -45,6 +47,8 @@
         padding-right: 0.6em;
         margin-right: 1.2em;
         position: relative;
+        cursor: pointer;
+        .drop-shadow(-0.1em; -0.1em; 0.1em; 0.3);
 
         &:before {
             content: "";
@@ -55,7 +59,7 @@
             left: -0.7em;
             .border-radius(0; 0; 0; 0.5em);
             .transform(skew(-20deg));
-            .drop-shadow(-0.1em; 0.1em; 0.1em; 0.4);
+            .drop-shadow(-0.1em; -0.1em; 0.1em; 0.3);
         }
 
         &:after {
@@ -68,11 +72,16 @@
             z-index: 1;
             .border-radius(0.5em);
             .transform(skew(20deg));
-            .drop-shadow(0.1em; 0.1em; 0.1em; 0.4);
+            .drop-shadow(0.1em; -0.1em; 0.1em; 0.3);
+        }
+
+        &:hover {
+            background-color: @hoverColor;
         }
 
         &.smartTabsActive {
             background-color: @activeColor;
+            z-index: 3;
         }
     }
 

@@ -115,6 +115,21 @@
 
             });
 
+            it('should allow selecting tabs', function () {
+                var options = [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ];
+
+                $('.myTestDiv').smartTabs(options);
+
+                $('.smartTabsTabTitle:nth-child(3)').click();
+                $('.smartTabsTabTitle:nth-child(3).smartTabsActive').should.have.length(1);
+                $('.smartTabsTabTitle:nth-child(1)').click();
+                $('.smartTabsTabTitle:nth-child(1).smartTabsActive').should.have.length(1);
+            });
+
         });
 
         describe('Concurrency', function () {

@@ -12,6 +12,15 @@
         $el.append(html);
     }
 
+    function initEvents($el) {
+        $el.on('click', '.smartTabsTabTitle', function () {
+            // first be sure that non of the tabs are active now
+            $el.find('.smartTabsTabTitle').removeClass('smartTabsActive');
+            // put as active the cliked tab
+            $(this).addClass('smartTabsActive');
+        });
+    }
+
     function createTabs($el, listTabs) {
         var i,
             htmlTitles = '',
@@ -36,6 +45,8 @@
         var $this = $(this);
 
         initHtml($this);
+
+        initEvents($this);
 
         createTabs($this, options || []);
 
