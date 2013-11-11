@@ -130,6 +130,26 @@
                 $('.smartTabsTabTitle:nth-child(1).smartTabsActive').should.have.length(1);
             });
 
+            it('should only show the content of the selected tab', function () {
+                var options = [
+                    { title: 'Tab 1', templateId: 'template1' },
+                    { title: 'Tab 2', templateId: 'template2' },
+                    { title: 'Tab 3', templateId: 'template3' }
+                ];
+
+                $('.myTestDiv').smartTabs(options);
+
+                // initially only the content of the first tab should be shown
+                $('.smartTabsContent:nth-child(1)').is(':visible').should.equal(true);
+                $('.smartTabsContent:nth-child(2)').is(':visible').should.equal(false);
+                $('.smartTabsContent:nth-child(3)').is(':visible').should.equal(false);
+                // now select the 3rd tab and only its content should be shown
+                $('.smartTabsTabTitle:nth-child(3)').click();
+                $('.smartTabsContent:nth-child(1)').is(':visible').should.equal(false);
+                $('.smartTabsContent:nth-child(2)').is(':visible').should.equal(false);
+                $('.smartTabsContent:nth-child(3)').is(':visible').should.equal(true);
+            });
+
         });
 
         describe('Concurrency', function () {

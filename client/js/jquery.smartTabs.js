@@ -3,6 +3,21 @@
 (function ($) {
     'use strict';
 
+    var tabIdCounter = 0;
+
+    //////////////////////
+    // helper functions //
+    //////////////////////
+
+    function getTabId() {
+        tabIdCounter += 1;
+        return 'smartTabs-tab' + tabIdCounter;
+    }
+
+    //////////////////////
+    // plugin functions //
+    //////////////////////
+
     function initHtml($el) {
         var html;
 
@@ -16,24 +31,47 @@
         $el.on('click', '.smartTabsTabTitle', function () {
             // first be sure that non of the tabs are active now
             $el.find('.smartTabsTabTitle').removeClass('smartTabsActive');
+            // and all the tab contents are hidden
+            $el.find('.smartTabsContent').hide();
             // put as active the cliked tab
             $(this).addClass('smartTabsActive');
+            // show the content of the selected tab
+            $el.find('.smartTabsContent[data-tabid="' + $(this).attr('id') + '"]').show();
+
         });
     }
 
     function createTabs($el, listTabs) {
         var i,
             htmlTitles = '',
-            htmlContents = '';
+            htmlContents = '',
+            $title,
+            $content,
+            tabData,
+            tabId;
 
-        if (listTabs.length > 0) {
-            htmlTitles += '<li class="smartTabsTabTitle smartTabsActive">' + listTabs[0].title + '</li>';
-            htmlContents += '<div class="smartTabsContent">' + $('#' + listTabs[0].templateId).html() + '</div>';
-        }
 
-        for (i = 1; i < listTabs.length; i += 1) {
-            htmlTitles += '<li class="smartTabsTabTitle">' + listTabs[i].title + '</li>';
-            htmlContents += '<div class="smartTabsContent">' + $('#' + listTabs[i].templateId).html() + '</div>';
+        for (i = 0; i < listTabs.length; i += 1) {
+            tabData = listTabs[i];
+            tabId = getTabId();
+
+            $title = $('<li class="smartTabsTabTitle"></li>');
+            $title.attr('id', tabId);
+            $title.text(tabData.title);
+
+            $content = $('<div class="smartTabsContent"></div>');
+            $content.attr('data-tabid', tabId);
+            $content.html($('#' + tabData.templateId).html());
+
+            if (i === 0) {
+                $title.addClass('smartTabsActive');
+                $content.show();
+            } else {
+                $content.hide();
+            }
+
+            htmlTitles += $title[0].outerHTML;
+            htmlContents += $content[0].outerHTML;
         }
 
         $el.find('.smartTabsList').append(htmlTitles);
