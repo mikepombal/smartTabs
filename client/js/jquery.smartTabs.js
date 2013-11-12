@@ -19,12 +19,19 @@
     //////////////////////
 
     function initHtml($el) {
-        var html;
+        var $tabSystem = $('<div class="smartTabsSystem"></div>');
 
-        html = '<div class="smartTabsSystem"><div class="smartTabsHeader">';
-        html += '<ul class="smartTabsList"></ul></div><div class="smartTabsBody"></div></div>';
+        // add the header where will be all the tab titles
+        $tabSystem.append('<div class="smartTabsHeader"></div>');
+        // add the body that will show the content of the tabs
+        $tabSystem.append('<div class="smartTabsBody"></div>');
 
-        $el.append(html);
+        // add a list to the heather
+        $tabSystem.find('.smartTabsHeader').append('<ul class="smartTabsList"></ul>');
+        // add a div acting as a button to show the hidden tabs
+        $tabSystem.find('.smartTabsHeader').append('<div class="smartTabsShowHiddenTabs"><div></div></div>');
+
+        $el.append($tabSystem[0].outerHTML);
     }
 
     function initEvents($el) {

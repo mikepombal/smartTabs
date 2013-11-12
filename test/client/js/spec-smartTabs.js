@@ -166,6 +166,16 @@
                 $('.smartTabsTabTitle:nth-child(3)').position().top.should.equal(topPosition);
             });
 
+            it('should exist a div to show any hidden tab', function () {
+                /**
+                 * This div acting as a button should be on the right on the tab header 
+                 */
+                $('.myTestDiv').smartTabs();
+
+                $('.smartTabsHeader > div.smartTabsShowHiddenTabs').should.have.length(1);
+
+            });
+
         });
 
         describe('Concurrency', function () {
