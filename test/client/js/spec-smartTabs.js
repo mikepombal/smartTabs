@@ -150,6 +150,22 @@
                 $('.smartTabsContent:nth-child(3)').is(':visible').should.equal(true);
             });
 
+            it('should have all the tabs in the same top position', function () {
+                var topPosition, options = [
+                    { title: 'Tab 1 with a long name', templateId: 'template1' },
+                    { title: 'Tab 2 with a long name', templateId: 'template2' },
+                    { title: 'Tab 3 with a long name', templateId: 'template3' }
+                ];
+
+                // turn the width of the div very small
+                $('.myTestDiv').width('20em');
+                $('.myTestDiv').smartTabs(options);
+
+                topPosition = $('.smartTabsTabTitle:nth-child(1)').position().top;
+                $('.smartTabsTabTitle:nth-child(2)').position().top.should.equal(topPosition);
+                $('.smartTabsTabTitle:nth-child(3)').position().top.should.equal(topPosition);
+            });
+
         });
 
         describe('Concurrency', function () {
