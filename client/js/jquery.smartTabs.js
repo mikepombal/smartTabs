@@ -18,6 +18,33 @@
     // plugin functions //
     //////////////////////
 
+    function getHiddenTabsButtonHtml() {
+        var $button = $('<div class="smartTabsShowHiddenTabs"></div>');
+
+        $button.append('<div></div>');
+        $button.hide();
+
+        return $button[0].outerHTML;
+    }
+
+    function defineHiddenTabsButtonVisibility($el) {
+        var headerWidth = $el.find('.smartTabsHeader').width(),
+            $lastChild = $el.find('.smartTabsTabTitle:nth-last-child(1)'),
+            rightPosition;
+
+        if ($lastChild.length) {
+            rightPosition = $lastChild.position().left;
+            rightPosition += $lastChild.outerWidth();
+            rightPosition += parseInt($lastChild.css('padding-right'), 10) / 0.6;
+
+            if (rightPosition > headerWidth) {
+                $el.find('.smartTabsShowHiddenTabs').show();
+            } else {
+                $el.find('.smartTabsShowHiddenTabs').hide();
+            }
+        }
+    }
+
     function initHtml($el) {
         var $tabSystem = $('<div class="smartTabsSystem"></div>');
 
@@ -29,7 +56,7 @@
         // add a list to the heather
         $tabSystem.find('.smartTabsHeader').append('<ul class="smartTabsList"></ul>');
         // add a div acting as a button to show the hidden tabs
-        $tabSystem.find('.smartTabsHeader').append('<div class="smartTabsShowHiddenTabs"><div></div></div>');
+        $tabSystem.find('.smartTabsHeader').append(getHiddenTabsButtonHtml());
 
         $el.append($tabSystem[0].outerHTML);
     }
@@ -83,6 +110,8 @@
 
         $el.find('.smartTabsList').append(htmlTitles);
         $el.find('.smartTabsBody').append(htmlContents);
+
+        defineHiddenTabsButtonVisibility($el);
 
     }
 

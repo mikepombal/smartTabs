@@ -176,6 +176,23 @@
 
             });
 
+            it('should hide the smartTabsShowHiddenTabs all the tabs can be fully shown', function () {
+                var options = [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ];
+
+                $('.myTestDiv').width('100em');
+                $('.myTestDiv').smartTabs(options);
+                $('.smartTabsShowHiddenTabs').is(':visible').should.equal(false);
+                // Check also that the button appear when it should
+                $('.myTestDiv').html('');
+                $('.myTestDiv').width('10em');
+                $('.myTestDiv').smartTabs(options);
+                $('.smartTabsShowHiddenTabs').is(':visible').should.equal(true);
+            });
+
         });
 
         describe('Concurrency', function () {
