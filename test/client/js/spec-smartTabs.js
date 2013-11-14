@@ -244,6 +244,23 @@
 
             });
 
+            it('should not allow activate a hidden tab', function () {
+                var options = [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ];
+
+                $('.myTestDiv').width('22em');
+                $('.myTestDiv').smartTabs(options);
+
+                $('.smartTabsTabTitle:nth-child(4)').hasClass('smartTabsHiddenTab').should.equal(true);
+                $('.smartTabsTabTitle:nth-child(4)').click();
+                $('.smartTabsTabTitle:nth-child(4)').hasClass('smartTabsActive').should.equal(false);
+            });
+
             // it('should show a popup when clicking on the hidden tabs button', function () {
             //     /**
             //      * the popup should be inserted in an overlay that cover the whole div

@@ -96,14 +96,19 @@
 
     function initEvents($el) {
         $el.on('click', '.smartTabsTabTitle', function () {
-            // first be sure that non of the tabs are active now
-            $el.find('.smartTabsTabTitle').removeClass('smartTabsActive');
-            // and all the tab contents are hidden
-            $el.find('.smartTabsContent').hide();
-            // put as active the cliked tab
-            $(this).addClass('smartTabsActive');
-            // show the content of the selected tab
-            $el.find('.smartTabsContent[data-tabid="' + $(this).attr('id') + '"]').show();
+            var $this = $(this);
+
+            // check it the tab is not hidden
+            if (!$this.hasClass('smartTabsHiddenTab')) {
+                // first be sure that non of the tabs are active now
+                $el.find('.smartTabsTabTitle').removeClass('smartTabsActive');
+                // and all the tab contents are hidden
+                $el.find('.smartTabsContent').hide();
+                // put as active the cliked tab
+                $this.addClass('smartTabsActive');
+                // show the content of the selected tab
+                $el.find('.smartTabsContent[data-tabid="' + $this.attr('id') + '"]').show();
+            }
 
         });
     }
