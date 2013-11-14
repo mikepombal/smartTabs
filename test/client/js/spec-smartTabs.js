@@ -261,30 +261,31 @@
                 $('.smartTabsTabTitle:nth-child(4)').hasClass('smartTabsActive').should.equal(false);
             });
 
-            // it('should show a popup when clicking on the hidden tabs button', function () {
-            //     /**
-            //      * the popup should be inserted in an overlay that cover the whole div
-            //      * where the tab system is created. It should be created only once
-            //      * and only if needed (if user has clicked on the button at least once)
-            //      */
+            it('should show a popup when clicking on the hidden tabs button', function () {
+                /**
+                 * the popup should be inserted in an overlay that cover the whole div
+                 * where the tab system is created. It should be created only once
+                 * and only if needed (if user has clicked on the button at least once)
+                 */
 
-            //     $('.myTestDiv').smartTabs();
+                $('.myTestDiv').smartTabs();
 
 
-            //     $('.smartTabsOverlay').should.have.length(0);
-            //     $('.smartTabsPopup').should.have.length(0);
+                $('.smartTabsOverlay').should.have.length(0);
+                $('.smartTabsPopup').should.have.length(0);
 
-            //     $('.smartTabsShowHiddenTabs').click();
+                $('.smartTabsShowHiddenTabs').click();
 
-            //     $('.smartTabsSystem').next().hasClass('smartTabsOverlay').should.be.equal(true);
-            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
+                $('.smartTabsSystem').children().should.have.length(3);
+                $('.smartTabsSystem').children(':nth-child(3)').hasClass('smartTabsOverlay').should.equal(true);
+                $('.smartTabsOverlay > .smartTabsPopup').should.have.length(1);
 
-            //     // test that a second click wont create it again
-            //     $('.smartTabsShowHiddenTabs').click();
+                // test that a second click wont create it again
+                $('.smartTabsShowHiddenTabs').click();
 
-            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
-            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
-            // });
+                $('.smartTabsOverlay').should.have.length(1);
+                $('.smartTabsPopup').should.have.length(1);
+            });
 
         });
 

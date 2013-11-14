@@ -42,11 +42,6 @@
             // get the value when a tab is considered hidden
             rigthEdge = $el.find('.smartTabsHeader').width();
 
-            // // remove the with of the button (1.7em) if it is being shown
-            // if ($('.smartTabsShowHiddenTabs').is(':visible')) {
-            //     rigthEdge -= 1.7 * pxEmFactor;
-            // }
-
             for (i = $el.find('.smartTabsTabTitle').length; i > 0; i -= 1) {
                 $tab = $('.smartTabsTabTitle:nth-child(' + i + ')');
 
@@ -94,7 +89,22 @@
         $el.append($tabSystem[0].outerHTML);
     }
 
+    function showHiddenTabsPopup($el) {
+        var $overlay;
+
+        if (!$el.find('.smartTabsSystem > .smartTabsOverlay').length) {
+            $overlay = $('<div class="smartTabsOverlay"></div>');
+
+            $overlay.append('<div class="smartTabsPopup"></div>');
+
+            $el.find('.smartTabsSystem').append($overlay[0].outerHTML);
+        }
+    }
+
     function initEvents($el) {
+        /**
+         * Events triggered when clicking on a tab title
+         */
         $el.on('click', '.smartTabsTabTitle', function () {
             var $this = $(this);
 
@@ -110,6 +120,13 @@
                 $el.find('.smartTabsContent[data-tabid="' + $this.attr('id') + '"]').show();
             }
 
+        });
+
+        /**
+         * Event triggered when clicking on the show hidden tabs button
+         */
+        $el.on('click', '.smartTabsShowHiddenTabs', function () {
+            showHiddenTabsPopup($el);
         });
     }
 
