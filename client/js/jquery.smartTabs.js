@@ -27,17 +27,50 @@
         return $button[0].outerHTML;
     }
 
-    function defineHiddenTabsButtonVisibility($el) {
-        var headerWidth = $el.find('.smartTabsHeader').width(),
-            $lastChild = $el.find('.smartTabsTabTitle:nth-last-child(1)'),
-            rightPosition;
+    function defineTabsVisibility($el) {
+        var i, pxEmFactor, rigthEdge, $tab, rightPosition,
+            showHiddenTabsButton = false;
 
-        if ($lastChild.length) {
-            rightPosition = $lastChild.position().left;
-            rightPosition += $lastChild.outerWidth();
-            rightPosition += parseInt($lastChild.css('padding-right'), 10) / 0.6;
 
-            if (rightPosition > headerWidth) {
+        if ($el.find('.smartTabsTabTitle').length) {
+
+            // to get this factor we choose an element that has a width defined in 'em'
+            // (e.g. the padding right of the tab title which is '0.6em' wide)
+            // and we get its value in pixels.
+            pxEmFactor = parseInt($('.smartTabsTabTitle:nth-child(1)').css('padding-right'), 10) / 0.6;
+
+            // get the value when a tab is considered hidden
+            rigthEdge = $el.find('.smartTabsHeader').width();
+
+            // // remove the with of the button (1.7em) if it is being shown
+            // if ($('.smartTabsShowHiddenTabs').is(':visible')) {
+            //     rigthEdge -= 1.7 * pxEmFactor;
+            // }
+
+            for (i = $el.find('.smartTabsTabTitle').length; i > 0; i -= 1) {
+                $tab = $('.smartTabsTabTitle:nth-child(' + i + ')');
+
+                // to get the right position of the tab we first get its left one
+                rightPosition = $tab.position().left;
+                // then we add the full width
+                rightPosition += $tab.outerWidth();
+                // the width does not include the :after pseudo element
+                // but we know it is '1em' wide, using the factor we can get
+                // the value in pixels
+                rightPosition += pxEmFactor;
+
+                if (rightPosition > rigthEdge) {
+                    $tab.addClass('smartTabsHiddenTab');
+
+                    if (!showHiddenTabsButton) {
+                        showHiddenTabsButton = true;
+                        // as the button is being shown we also need to count it
+                        rigthEdge -= 1.7 * pxEmFactor;
+                    }
+                }
+            }
+
+            if (showHiddenTabsButton) {
                 $el.find('.smartTabsShowHiddenTabs').show();
             } else {
                 $el.find('.smartTabsShowHiddenTabs').hide();
@@ -111,7 +144,7 @@
         $el.find('.smartTabsList').append(htmlTitles);
         $el.find('.smartTabsBody').append(htmlContents);
 
-        defineHiddenTabsButtonVisibility($el);
+        defineTabsVisibility($el);
 
     }
 

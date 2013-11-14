@@ -193,6 +193,82 @@
                 $('.smartTabsShowHiddenTabs').is(':visible').should.equal(true);
             });
 
+            it('should desactivate any hidden tab', function () {
+                /**
+                 * We call a hidden tab any of them that are not fully visible
+                 * either hidden by the edge of the div container, or by the
+                 * button the show the hidden tabs
+                 */
+                var rightPosition, $el, i, pxEmFactor, rigthEdge,
+                    options = [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ];
+
+                $('.myTestDiv').width('22em');
+                $('.myTestDiv').smartTabs(options);
+
+                // to get this factor we choose an element that has a width defined in 'em'
+                // (e.g. the padding right of the tab title which is '0.6em' wide)
+                // and we get its value in pixels.
+                pxEmFactor = parseInt($('.smartTabsTabTitle:nth-child(1)').css('padding-right'), 10) / 0.6;
+
+                // get the value when a tab is considered hidden
+                rigthEdge = $('.smartTabsHeader').width();
+                // remove the with of the button (1.7em) if it is being shown
+                if ($('.smartTabsShowHiddenTabs').is(':visible')) {
+                    rigthEdge -= 1.7 * pxEmFactor;
+                }
+
+                for (i = 1; i <= 5; i += 1) {
+                    $el = $('.smartTabsTabTitle:nth-child(' + i + ')');
+
+                    // to get the right position of the tab we first get its left one
+                    rightPosition = $el.position().left;
+                    // then we add the full width
+                    rightPosition += $el.outerWidth();
+                    // the width does not include the :after pseudo element
+                    // but we know it is '1em' wide, using the factor we can get
+                    // the value in pixels
+                    rightPosition += pxEmFactor;
+
+                    if (rightPosition > rigthEdge) {
+                        $el.hasClass('smartTabsHiddenTab').should.equal(true);
+                    } else {
+                        $el.hasClass('smartTabsHiddenTab').should.equal(false);
+                    }
+                }
+
+            });
+
+            // it('should show a popup when clicking on the hidden tabs button', function () {
+            //     /**
+            //      * the popup should be inserted in an overlay that cover the whole div
+            //      * where the tab system is created. It should be created only once
+            //      * and only if needed (if user has clicked on the button at least once)
+            //      */
+
+            //     $('.myTestDiv').smartTabs();
+
+
+            //     $('.smartTabsOverlay').should.have.length(0);
+            //     $('.smartTabsPopup').should.have.length(0);
+
+            //     $('.smartTabsShowHiddenTabs').click();
+
+            //     $('.smartTabsSystem').next().hasClass('smartTabsOverlay').should.be.equal(true);
+            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
+
+            //     // test that a second click wont create it again
+            //     $('.smartTabsShowHiddenTabs').click();
+
+            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
+            //     $('.smartTabsOverlay > smartTabsPopup').should.have.length(1);
+            // });
+
         });
 
         describe('Concurrency', function () {

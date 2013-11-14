@@ -6,6 +6,7 @@
 @activeColor: #FFFFFF;
 @hoverColor: darken(@activeColor, 10%);
 @secondColor: darken(@activeColor, 20%);
+@desactivateColor: darken(@activeColor, 60%);;
 
 // Size
 @headerHeight: 2em;
@@ -86,19 +87,24 @@
             background-color: @activeColor;
             z-index: 3;
         }
+
+        &.smartTabsHiddenTab {
+            background-color: @desactivateColor;
+            cursor: default;
+        }
     }
 
     .smartTabsShowHiddenTabs {
         position: absolute;
-        right: 0;
-        top: 0;
+        right: -0.1em;
+        top: -0.1em;
         z-index: 3;
         height: @headerHeight * 0.9;
         width: @headerHeight * 0.9; // we want it to be square
         background-color: @secondColor;
         cursor: pointer;
         .drop-shadow(-0.1em; 0.1em; 0.1em; 0.3);
-        .border-radius(0; 0; @headerHeight * 0.6);
+        .border-radius(0; 0; @headerHeight * 0.3);
 
         &:hover {
             background-color: @hoverColor;
