@@ -337,6 +337,38 @@
 
             });
 
+            it('should move the selected hidden tab to the first position', function () {
+                var options = [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ],
+                    $selectedHiddenTab,
+                    $firstTab,
+                    tabId;
+
+                $('.myTestDiv').width('22em');
+                $('.myTestDiv').smartTabs(options);
+
+                // show the popup
+                $('.smartTabsShowHiddenTabs').click();
+
+                $selectedHiddenTab = $('.smartTabsHiddenTabsList > li').first();
+                // gets the tabid it is referencing
+                tabId = $selectedHiddenTab.data('tabid');
+                // select the first hidden tab
+                $selectedHiddenTab.click();
+
+                $firstTab = $('.smartTabsList li').first();
+                // check the tab is at the first position
+                $firstTab.attr('id').should.equal(tabId);
+                // check the tab is active and not hidden anymore
+                $firstTab.hasClass('smartTabsHiddenTab').should.equal(false);
+                $firstTab.hasClass('smartTabsActive').should.equal(true);
+            });
+
         });
 
         describe('Concurrency', function () {

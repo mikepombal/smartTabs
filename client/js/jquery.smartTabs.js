@@ -62,6 +62,8 @@
                         // as the button is being shown we also need to count it
                         rigthEdge -= 1.7 * pxEmFactor;
                     }
+                } else {
+                    $tab.removeClass('smartTabsHiddenTab');
                 }
             }
 
@@ -113,6 +115,19 @@
         }
     }
 
+    function selectTab($el, tabId) {
+        var $tab = $el.find('.smartTabsTabTitle[id="' + tabId + '"]');
+        // check if the tab is currently hidden
+        if ($tab.hasClass('smartTabsHiddenTab')) {
+            // if so relocate it in the first position
+            $tab.prependTo($el.find('.smartTabsList'));
+            // and redifined the tabs visibility
+            defineTabsVisibility($el);
+        }
+        // give the focus to the tab
+        $tab.click();
+    }
+
     function initEvents($el) {
         /**
          * Events triggered when clicking on a tab title
@@ -146,6 +161,13 @@
          */
         $el.on('click', '.smartTabsOverlay', function () {
             $el.find('.smartTabsOverlay').hide();
+        });
+
+        /**
+         * Event triggered when selecting one of the hidden tabs in the popup
+         */
+        $el.on('click', '.smartTabsHiddenTabsList > li', function () {
+            selectTab($el, $(this).data('tabid'));
         });
     }
 

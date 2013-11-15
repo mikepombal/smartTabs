@@ -172,6 +172,14 @@
         & > .smartTabsHiddenTabsList {
             list-style-type: none;
             margin: 0;
+
+            & > li {
+                cursor: pointer;
+
+                &:hover {
+                    background-color: @hoverColor;
+                }
+            }
         }
     }
 }
