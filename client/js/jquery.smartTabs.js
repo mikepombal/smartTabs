@@ -90,14 +90,24 @@
     }
 
     function showHiddenTabsPopup($el) {
-        var $overlay;
+        var $overlay, $list;
+
+        // define the list of the hidden tabs
+        $list = $('<ul class="smartTabsHiddenTabsList"></ul>');
+        $el.find('.smartTabsHiddenTab').each(function () {
+            var $this = $(this);
+
+            $list.append('<li data-tabid="' + $this.attr('id') + '">' + $this.text() + '</li>');
+        });
 
         if ($el.find('.smartTabsSystem > .smartTabsOverlay').length) {
+            $el.find('.smartTabsPopup').html($list[0].outerHTML);
             $el.find('.smartTabsOverlay').show();
         } else {
             $overlay = $('<div class="smartTabsOverlay"></div>');
 
             $overlay.append('<div class="smartTabsPopup"></div>');
+            $overlay.find('.smartTabsPopup').html($list[0].outerHTML);
 
             $el.find('.smartTabsSystem').append($overlay[0].outerHTML);
         }

@@ -305,6 +305,38 @@
                 $('.smartTabsOverlay').is(':visible').should.equal(false);
             });
 
+            it('should list the hidden tabs when the popup shows up', function () {
+                var options = [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ],
+                    $list,
+                    $tab,
+                    i;
+
+                $('.myTestDiv').width('22em');
+                $('.myTestDiv').smartTabs(options);
+
+                // show the popup
+                $('.smartTabsShowHiddenTabs').click();
+
+                // check the ul element is created
+                $('.smartTabsPopup > ul.smartTabsHiddenTabsList').should.have.length(1);
+                $list = $('.smartTabsHiddenTabsList');
+
+                for (i = 0; i < options.length; i += 1) {
+                    $tab = $('.smartTabsTabTitle:nth-child(' +  i + ')');
+                    if ($tab.hasClass('smartTabsHiddenTab')) {
+                        $list.find('li[data-tabid="' + $tab.attr('id') + '"]').should.have.length(1);
+                        $list.find('li[data-tabid="' + $tab.attr('id') + '"]').text().should.equal($tab.text());
+                    }
+                }
+
+            });
+
         });
 
         describe('Concurrency', function () {
