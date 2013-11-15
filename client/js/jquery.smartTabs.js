@@ -92,7 +92,9 @@
     function showHiddenTabsPopup($el) {
         var $overlay;
 
-        if (!$el.find('.smartTabsSystem > .smartTabsOverlay').length) {
+        if ($el.find('.smartTabsSystem > .smartTabsOverlay').length) {
+            $el.find('.smartTabsOverlay').show();
+        } else {
             $overlay = $('<div class="smartTabsOverlay"></div>');
 
             $overlay.append('<div class="smartTabsPopup"></div>');
@@ -127,6 +129,13 @@
          */
         $el.on('click', '.smartTabsShowHiddenTabs', function () {
             showHiddenTabsPopup($el);
+        });
+
+        /**
+         * Event triggered when cliking on the overlay of the hidden tabs list popup
+         */
+        $el.on('click', '.smartTabsOverlay', function () {
+            $el.find('.smartTabsOverlay').hide();
         });
     }
 

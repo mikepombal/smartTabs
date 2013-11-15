@@ -287,6 +287,24 @@
                 $('.smartTabsPopup').should.have.length(1);
             });
 
+            it('should hide the hidden tabs list popup if clicking outside it', function () {
+                /**
+                 * Outside the popup but inside the smartTabs controle
+                 */
+
+                $('.myTestDiv').smartTabs();
+
+                // Show the popup (inside the overlay)
+                $('.smartTabsShowHiddenTabs').click();
+
+                $('.smartTabsOverlay').is(':visible').should.equal(true);
+
+                // by clicking anyway on the overlay it should hide it (and so the popup as well)
+                $('.smartTabsOverlay').click();
+
+                $('.smartTabsOverlay').is(':visible').should.equal(false);
+            });
+
         });
 
         describe('Concurrency', function () {
