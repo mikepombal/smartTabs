@@ -87,6 +87,8 @@
         $tabSystem.find('.smartTabsHeader').append('<ul class="smartTabsList"></ul>');
         // add a div acting as a button to show the hidden tabs
         $tabSystem.find('.smartTabsHeader').append(getHiddenTabsButtonHtml());
+        // add a div to hide the shaddow of the active tab
+        $tabSystem.find('.smartTabsHeader').append('<div class="smartTabsHideActiveShadow"></div>');
 
         $el.append($tabSystem[0].outerHTML);
     }
