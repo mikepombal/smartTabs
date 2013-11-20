@@ -27,6 +27,11 @@
         return $button[0].outerHTML;
     }
 
+    function getPxEmFactor($el) {
+        // the em to px factor is simply the font-size
+        return parseInt($el.css('font-size'), 10);
+    }
+
     function defineTabsVisibility($el) {
         var i, pxEmFactor, rigthEdge, $tab, rightPosition,
             showHiddenTabsButton = false;
@@ -34,10 +39,7 @@
 
         if ($el.find('.smartTabsTabTitle').length) {
 
-            // to get this factor we choose an element that has a width defined in 'em'
-            // (e.g. the padding right of the tab title which is '0.6em' wide)
-            // and we get its value in pixels.
-            pxEmFactor = parseInt($('.smartTabsTabTitle:nth-child(1)').css('padding-right'), 10) / 0.6;
+            pxEmFactor = getPxEmFactor($el);
 
             // get the value when a tab is considered hidden
             rigthEdge = $el.find('.smartTabsHeader').width();
@@ -115,19 +117,33 @@
 
             $el.find('.smartTabsSystem').append($overlay[0].outerHTML);
         }
+
+        // reveal the popup using animation
+        $el.find('.smartTabsPopup').show(300);
     }
 
     function selectTab($el, tabId) {
-        var $tab = $el.find('.smartTabsTabTitle[id="' + tabId + '"]');
+        var $tab = $el.find('.smartTabsTabTitle[id="' + tabId + '"]'),
+            tabWidth;
         // check if the tab is currently hidden
         if ($tab.hasClass('smartTabsHiddenTab')) {
-            // if so relocate it in the first position
-            $tab.prependTo($el.find('.smartTabsList'));
-            // and redifined the tabs visibility
-            defineTabsVisibility($el);
+            // get the tab width plus his left margin
+            tabWidth = $tab.outerWidth() + parseInt($tab.css('margin-right'), 10);
+            // hide the tab down under the body
+            $tab.css('top', '2em');
+            // simulate a move to the right to give space to the tab
+            $el.find('.smartTabsList').animate({ 'margin-left': tabWidth }, 200, function () {
+                // if so relocate it in the first position
+                $tab.prependTo($el.find('.smartTabsList'));
+                $el.find('.smartTabsList').css('margin-left', 0);
+                // and redifined the tabs visibility
+                defineTabsVisibility($el);
+                // reveal the tab using animation
+                $tab.animate({ 'top': 0 }, 200);
+                // give the focus to the tab
+                $tab.click();
+            });
         }
-        // give the focus to the tab
-        $tab.click();
     }
 
     function initEvents($el) {
@@ -163,6 +179,8 @@
          */
         $el.on('click', '.smartTabsOverlay', function () {
             $el.find('.smartTabsOverlay').hide();
+            // hide the popup itself to use animation when showing it
+            $el.find('.smartTabsPopup').hide();
         });
 
         /**

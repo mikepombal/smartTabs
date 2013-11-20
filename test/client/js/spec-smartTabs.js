@@ -1,4 +1,5 @@
 /*global jQuery, describe, it, beforeEach, afterEach, before, after*/
+/*jslint browser:true*/
 
 (function ($) {
     'use strict';
@@ -337,7 +338,7 @@
 
             });
 
-            it('should move the selected hidden tab to the first position', function () {
+            it('should move the selected hidden tab to the first position', function (done) {
                 var options = [
                         { title: 'Tab 1' },
                         { title: 'Tab 2' },
@@ -361,12 +362,17 @@
                 // select the first hidden tab
                 $selectedHiddenTab.click();
 
-                $firstTab = $('.smartTabsList li').first();
-                // check the tab is at the first position
-                $firstTab.attr('id').should.equal(tabId);
-                // check the tab is active and not hidden anymore
-                $firstTab.hasClass('smartTabsHiddenTab').should.equal(false);
-                $firstTab.hasClass('smartTabsActive').should.equal(true);
+                // wait for the animation ending
+                setTimeout(function () {
+                    $firstTab = $('.smartTabsList li').first();
+                    // check the tab is at the first position
+                    $firstTab.attr('id').should.equal(tabId);
+                    // check the tab is active and not hidden anymore
+                    $firstTab.hasClass('smartTabsHiddenTab').should.equal(false);
+                    $firstTab.hasClass('smartTabsActive').should.equal(true);
+
+                    done();
+                }, 500);
             });
 
         });

@@ -2,11 +2,12 @@
 @import "elements.less";
 
 // Component Colours
-@headerColor: #555555;
+@headerColor: #999999;
 @activeColor: #FFFFFF;
-@hoverColor: darken(@activeColor, 10%);
-@secondColor: darken(@activeColor, 20%);
-@desactivateColor: darken(@activeColor, 60%);;
+@hoverColor: darken(@activeColor, 8%);
+@secondColor: darken(@activeColor, 16%);
+@desactivateColor: darken(@activeColor, 50%);
+@fontColor: contrast(@activeColor);
 
 // Size
 @headerHeight: 2em;
@@ -18,9 +19,11 @@
     position: relative;
     min-height: 10em;
     background-color: @activeColor;
+    color: @fontColor;
+    overflow-x: hidden;
 
     .smartTabsHeader {
-        background-color: @headerColor;
+        .gradient(@headerColor, darken(@headerColor, 15%), lighten(@headerColor, 15%));
         height: @headerHeight;
         position: relative;
         overflow: hidden;
@@ -34,7 +37,7 @@
             background-color: @activeColor;
             position: absolute;
             z-index: 2;
-            .drop-shadow(0; -0.1em; 0.1em; 0.3);
+            .drop-shadow(0; -0.05em; 0.2em; 0.3);
         }
 
         & > .smartTabsHideActiveShadow {
@@ -55,7 +58,7 @@
 
     .smartTabsTabTitle {
         float: left;
-        background-color: @secondColor;
+        .gradient(@secondColor, darken(@secondColor, 10%), lighten(@secondColor, 10%));
         margin-top: @headerHeight * 0.1;
         height: @headerHeight * 0.8;
         line-height: @headerHeight * 0.8;
@@ -64,11 +67,12 @@
         margin-right: 1.2em;
         position: relative;
         cursor: pointer;
+        color: lighten(@fontColor, 30%);
         .drop-shadow(0em; -0.03em; 0.05em; 0.3);
 
         &:before {
             content: "";
-            background-color: inherit;
+            .gradient(@secondColor, darken(@secondColor, 10%), lighten(@secondColor, 10%));
             width: 1em;
             height: @headerHeight * 0.8;
             position: absolute;
@@ -80,7 +84,7 @@
 
         &:after {
             content: "";
-            background-color: inherit;
+            .gradient(@secondColor, darken(@secondColor, 10%), lighten(@secondColor, 10%));
             width: 1em;
             height: @headerHeight * 0.8;
             position: absolute;
@@ -92,17 +96,39 @@
         }
 
         &:hover {
-            background-color: @hoverColor;
+            .gradient(@hoverColor, darken(@hoverColor, 10%), lighten(@hoverColor, 10%));
+            color: lighten(@fontColor, 15%);
+
+            &:before,
+            &:after {
+                .gradient(@hoverColor, darken(@hoverColor, 10%), lighten(@hoverColor, 10%));
+            }
         }
 
         &.smartTabsActive {
+            background: none;
             background-color: @activeColor;
             z-index: 3;
+            color: @fontColor;
+
+            &:before,
+            &:after {
+                background: none;
+                background-color: @activeColor;
+            }
+
         }
 
         &.smartTabsHiddenTab {
-            background-color: @desactivateColor;
+            .gradient(@desactivateColor, darken(@desactivateColor, 10%), lighten(@desactivateColor, 10%));
             cursor: default;
+
+            &:hover,
+            &:before,
+            &:after {
+                color: lighten(@fontColor, 30%);
+                .gradient(@desactivateColor, darken(@desactivateColor, 10%), lighten(@desactivateColor, 10%));
+            }
         }
     }
 
@@ -117,10 +143,8 @@
         cursor: pointer;
         .drop-shadow(-0.1em; 0.1em; 0.1em; 0.3);
         .border-radius(0; 0; @headerHeight * 0.3);
-
-        &:hover {
-            background-color: @hoverColor;
-        }
+        .transition-property(background-color);
+        .transition-property(right);
 
         & > div {
             position: relative;
@@ -128,7 +152,8 @@
             left: @headerHeight * 0.3;
             width: @headerHeight * 0.4;
             height: @headerHeight * 0.065;
-            background-color: #000000;
+            background-color: lighten(@fontColor, 50%);
+            .transition-property(background-color);
 
             &:before {
                 position: absolute;
@@ -150,6 +175,17 @@
                 background-color: inherit;
             }
         }
+
+        &:hover {
+            background-color: @hoverColor;
+            right: 0;
+
+            & > div {
+                background-color: @fontColor;
+            }
+        }
+
+
     }
 
     .smartTabsBody {
@@ -166,27 +202,43 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        // opacity: 0.7;
+        background-color: rgba(0, 0, 0, 0.3);
         z-index: 3;
     }
 
     .smartTabsPopup {
+        font-size: 0.8em;
         position: absolute;
-        right: 0;
-        min-height: 3em;
-        min-width: 3em;
-        background-color: @activeColor;
+        right: -0.1em;
+        background-color: darken(@activeColor, 10%);
+        .border-radius(0; 0; @headerHeight * 0.3);
+        .drop-shadow(-0.1em; 0.1em; 0.1em; 0.3);
+        display: none;
 
         & > .smartTabsHiddenTabsList {
             list-style-type: none;
             margin: 0;
+            margin-top: 0.2em;
+            margin-bottom: @headerHeight * 0.3em;
+            border-bottom: solid 0.1em @activeColor;
+            border-top: solid 0.1em darken(@activeColor, 20%);
+            padding: 0;
 
             & > li {
+                padding: 0.3em 1em;
                 cursor: pointer;
+                border-top: solid 0.1em @activeColor;
+                border-bottom: solid 0.1em darken(@activeColor, 20%);
+                color: lighten(contrast(@activeColor), 30%);
+                white-space: nowrap;
+                //.transition-property(background-color);
+                //.transition-property(color);
+                .transition();
+
 
                 &:hover {
-                    background-color: @hoverColor;
+                    background-color: darken(@activeColor, 3%);
+                    color: contrast(@activeColor);
                 }
             }
         }

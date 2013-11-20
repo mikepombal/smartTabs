@@ -154,3 +154,11 @@
   -webkit-background-clip: @argument;
   background-clip: @argument;
 }
+
+// Added mixins
+.transition-property(@prop, @duration:0.2s, @ease:ease-out) {
+  -webkit-transition: @prop @duration @ease;
+  -moz-transition: @prop @duration @ease;
+  -o-transition: @prop @duration @ease;
+  transition: @prop @duration @ease;
+}
