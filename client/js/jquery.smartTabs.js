@@ -3,21 +3,26 @@
 (function ($) {
     'use strict';
 
-    var tabIdCounter = 0;
+    var methods,
+        tabIdCounter = 0;
 
     //////////////////////
     // helper functions //
     //////////////////////
 
+    /**
+     * Defines a unique tabId
+     * @return {String} The tab id
+     */
     function getTabId() {
         tabIdCounter += 1;
         return 'smartTabs-tab' + tabIdCounter;
     }
 
-    //////////////////////
-    // plugin functions //
-    //////////////////////
-
+    /**
+     * Defines the html of the button to show the list of hidden tabs
+     * @return {String} The html string
+     */
     function getHiddenTabsButtonHtml() {
         var $button = $('<div class="smartTabsShowHiddenTabs"></div>');
 
@@ -27,11 +32,20 @@
         return $button[0].outerHTML;
     }
 
+    /**
+     * Defines the ratio em -> px
+     * @param  {Object} $el The jQuery object of the current instance
+     * @return {Number}     The factor is simply the font size used by the instance
+     */
     function getPxEmFactor($el) {
         // the em to px factor is simply the font-size
         return parseInt($el.css('font-size'), 10);
     }
 
+    /**
+     * For every tab defines if its visibility type depending of its position
+     * @param  {Object} $el The jQuery object of the current instance
+     */
     function defineTabsVisibility($el) {
         var i, pxEmFactor, rigthEdge, $tab, rightPosition,
             showHiddenTabsButton = false;
@@ -77,6 +91,10 @@
         }
     }
 
+    /**
+     * Define the HTML base of the plugin
+     * @param  {Object} $el The jQuery object of the current instance
+     */
     function initHtml($el) {
         var $tabSystem = $('<div class="smartTabsSystem"></div>');
 
@@ -95,6 +113,10 @@
         $el.append($tabSystem[0].outerHTML);
     }
 
+    /**
+     * Define the list of hidden tabs and show it in a popup
+     * @param  {Object} $el The jQuery object of the current instance
+     */
     function showHiddenTabsPopup($el) {
         var $overlay, $list;
 
@@ -122,6 +144,11 @@
         $el.find('.smartTabsPopup').show(300);
     }
 
+    /**
+     * Give the focus to a specific tab
+     * @param  {Object} $el   The jQuery object of the current instance
+     * @param  {String} tabId The tab id to give the focis to
+     */
     function selectTab($el, tabId) {
         var $tab = $el.find('.smartTabsTabTitle[id="' + tabId + '"]'),
             tabWidth;
@@ -146,6 +173,10 @@
         }
     }
 
+    /**
+     * Define all the needed events
+     * @param  {Object} $el The jQuery object of the current instance
+     */
     function initEvents($el) {
         /**
          * Events triggered when clicking on a tab title
@@ -191,6 +222,11 @@
         });
     }
 
+    /**
+     * Create a tab for every item in the list
+     * @param  {Object} $el      The jQuery object of the current instance
+     * @param  {Object} listTabs The list of objects to be showns
+     */
     function createTabs($el, listTabs) {
         var i,
             htmlTitles = '',
@@ -231,15 +267,32 @@
 
     }
 
-    $.fn.smartTabs = function (options) {
-        var $this = $(this);
+    /**
+     * the methods object contains all the action that users can do with the plugin
+     * @type {Object}
+     */
+    methods = {
+        /**
+         * Initialize an instance of the plugin
+         * @param  {[Object]} options User configuration to overide the default one
+         */
+        init: function init(options) {
+            var $this = $(this);
 
-        initHtml($this);
+            initHtml($this);
 
-        initEvents($this);
+            initEvents($this);
 
-        createTabs($this, options || []);
+            createTabs($this, options || []);
+        }
+    };
 
+    /**
+     * Plugin entry
+     */
+    $.fn.smartTabs = function () {
+
+        methods.init.apply(this, arguments);
     };
 
 }(jQuery));
