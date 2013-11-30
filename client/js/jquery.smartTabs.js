@@ -146,14 +146,15 @@
 
     /**
      * Give the focus to a specific tab
-     * @param  {Object} $el   The jQuery object of the current instance
-     * @param  {String} tabId The tab id to give the focis to
+     * @param  {Object} $el      The jQuery object of the current instance
+     * @param  {String} tabId    The tab id to give the focus to
+     * @param  {Boolean} isFirst Defines if the tab has to be shown in the first position
      */
-    function selectTab($el, tabId) {
+    function selectTab($el, tabId, isFirst) {
         var $tab = $el.find('.smartTabsTabTitle[id="' + tabId + '"]'),
             tabWidth;
         // check if the tab is currently hidden
-        if ($tab.hasClass('smartTabsHiddenTab')) {
+        if (isFirst) {
             // get the tab width plus his left margin
             tabWidth = $tab.outerWidth() + parseInt($tab.css('margin-right'), 10);
             // hide the tab down under the body
@@ -218,8 +219,38 @@
          * Event triggered when selecting one of the hidden tabs in the popup
          */
         $el.on('click', '.smartTabsHiddenTabsList > li', function () {
-            selectTab($el, $(this).data('tabid'));
+            selectTab($el, $(this).data('tabid'), true);
         });
+    }
+
+    /**
+     * Define for a tab its html of the title and the content
+     * @param  {Object} tabConfig The configuration of the tab
+     * @return {Array}           An array with both html (title and content) and also the tab Id
+     */
+    function createTab(tabConfig) {
+        var $title, $content, tabId = getTabId();
+
+        $title = $('<li class="smartTabsTabTitle"></li>');
+        $title.attr('id', tabId);
+        $title.text(tabConfig.title);
+
+        $content = $('<div class="smartTabsContent"></div>');
+        $content.attr('data-tabid', tabId);
+        $content.html($('#' + tabConfig.templateId).html());
+
+        if (tabConfig.isActive) {
+            $title.addClass('smartTabsActive');
+            $content.show();
+        } else {
+            $content.hide();
+        }
+
+        return {
+            tabId: tabId,
+            tabTitleHtml: $title[0].outerHTML,
+            tabContentHtml: $content[0].outerHTML
+        };
     }
 
     /**
@@ -229,35 +260,23 @@
      */
     function createTabs($el, listTabs) {
         var i,
+            tab,
             htmlTitles = '',
             htmlContents = '',
-            $title,
-            $content,
-            tabData,
-            tabId;
+            tabConfig;
 
 
         for (i = 0; i < listTabs.length; i += 1) {
-            tabData = listTabs[i];
-            tabId = getTabId();
-
-            $title = $('<li class="smartTabsTabTitle"></li>');
-            $title.attr('id', tabId);
-            $title.text(tabData.title);
-
-            $content = $('<div class="smartTabsContent"></div>');
-            $content.attr('data-tabid', tabId);
-            $content.html($('#' + tabData.templateId).html());
+            tabConfig = listTabs[i];
 
             if (i === 0) {
-                $title.addClass('smartTabsActive');
-                $content.show();
-            } else {
-                $content.hide();
+                tabConfig.isActive = true;
             }
 
-            htmlTitles += $title[0].outerHTML;
-            htmlContents += $content[0].outerHTML;
+            tab = createTab(tabConfig);
+
+            htmlTitles += tab.tabTitleHtml;
+            htmlContents += tab.tabContentHtml;
         }
 
         $el.find('.smartTabsList').append(htmlTitles);
@@ -265,6 +284,20 @@
 
         defineTabsVisibility($el);
 
+    }
+
+    /**
+     * Add a new tab to the list
+     * @param {Object} $el       The jQuery object of the current instance
+     * @param {object} tabConfig The configuration of the new tab
+     */
+    function addNewTab($el, tabConfig) {
+        var tab = createTab(tabConfig);
+
+        $el.find('.smartTabsList').append(tab.tabTitleHtml);
+        $el.find('.smartTabsBody').append(tab.tabContentHtml);
+
+        selectTab($el, tab.tabId, true);
     }
 
     /**
@@ -284,15 +317,24 @@
             initEvents($this);
 
             createTabs($this, options || []);
+        },
+
+        addTab: function addTab(options) {
+            addNewTab($(this), options);
         }
     };
 
     /**
      * Plugin entry
      */
-    $.fn.smartTabs = function () {
-
-        methods.init.apply(this, arguments);
+    $.fn.smartTabs = function (method) {
+        if (methods[method]) {
+            return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+        } else if (typeof method === "object" || !method) {
+            return methods.init.apply(this, arguments);
+        } else {
+            console.log("Method "+ method + " does not exist on jQuery.smartTabs");
+        }
     };
 
 }(jQuery));
