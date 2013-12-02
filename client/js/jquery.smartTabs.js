@@ -301,6 +301,19 @@
     }
 
     /**
+     * Add new tabs to the list
+     * @param {Object} $el           The jQuery object of the current instance
+     * @param {Array} listTabsConfig The array containing the config of each new tab
+     */
+    function addNewTabs($el, listTabsConfig) {
+        var i;
+
+        for (i = listTabsConfig.length - 1; i >= 0; i -= 1) {
+            addNewTab($el, listTabsConfig[i]);
+        }
+    }
+
+    /**
      * the methods object contains all the action that users can do with the plugin
      * @type {Object}
      */
@@ -319,8 +332,20 @@
             createTabs($this, options || []);
         },
 
-        addTab: function addTab(options) {
-            addNewTab($(this), options);
+        /**
+         * Allow adding one tab to the list
+         * @param {Object} options The configuration of the tab to be added
+         */
+        addTab: function addTab(tabConfig) {
+            addNewTab($(this), tabConfig);
+        },
+
+        /**
+         * Allow adding a list of new tabs
+         * @param {Array} listTabsConfig The array containing the config of each new tab
+         */
+        addTabs: function addTabs(listTabsConfig) {
+            addNewTabs($(this), listTabsConfig);
         }
     };
 
