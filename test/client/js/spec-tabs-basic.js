@@ -31,12 +31,14 @@
              * children of smartTabsList and contain the title
              * 
              */
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' },
-                { title: 'Tab 4' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' },
+                    { title: 'Tab 4' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -54,11 +56,13 @@
              * the content element should have the class smartTabsContent
              * children of smartTabsBody
              */
-            var options = [
-                { title: 'Tab 1', templateId: 'template1' },
-                { title: 'Tab 2', templateId: 'template2' },
-                { title: 'Tab 3', templateId: 'template3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1', templateId: 'template1' },
+                    { title: 'Tab 2', templateId: 'template2' },
+                    { title: 'Tab 3', templateId: 'template3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -74,11 +78,13 @@
              * The tab being active should get the smartTabsActive css class
              */
 
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -88,11 +94,13 @@
         });
 
         it('should allow selecting tabs', function () {
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -103,11 +111,13 @@
         });
 
         it('should only show the content of the selected tab', function () {
-            var options = [
-                { title: 'Tab 1', templateId: 'template1' },
-                { title: 'Tab 2', templateId: 'template2' },
-                { title: 'Tab 3', templateId: 'template3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1', templateId: 'template1' },
+                    { title: 'Tab 2', templateId: 'template2' },
+                    { title: 'Tab 3', templateId: 'template3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -123,11 +133,13 @@
         });
 
         it('should have all the tabs in the same top position', function () {
-            var topPosition, options = [
-                { title: 'Tab 1 with a long name', templateId: 'template1' },
-                { title: 'Tab 2 with a long name', templateId: 'template2' },
-                { title: 'Tab 3 with a long name', templateId: 'template3' }
-            ];
+            var topPosition, options = {
+                listTabs: [
+                    { title: 'Tab 1 with a long name', templateId: 'template1' },
+                    { title: 'Tab 2 with a long name', templateId: 'template2' },
+                    { title: 'Tab 3 with a long name', templateId: 'template3' }
+                ]
+            };
 
             // turn the width of the div very small
             $('.myTestDiv').width('20em');

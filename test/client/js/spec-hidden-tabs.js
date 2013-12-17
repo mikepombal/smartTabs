@@ -23,11 +23,13 @@
         });
 
         it('should hide the smartTabsShowHiddenTabs all the tabs can be fully shown', function () {
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ]
+            };
 
             $('.myTestDiv').width('100em');
             $('.myTestDiv').smartTabs(options);
@@ -46,15 +48,17 @@
              * button the show the hidden tabs
              */
             var rightPosition, $el, i, pxEmFactor, rigthEdge,
-                options = [
-                    { title: 'Tab 1' },
-                    { title: 'Tab 2' },
-                    { title: 'Tab 3' },
-                    { title: 'Tab 4' },
-                    { title: 'Tab 5' }
-                ];
+                options = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ]
+                };
 
-            $('.myTestDiv').width('22em');
+            $('.myTestDiv').width('16em');
             $('.myTestDiv').smartTabs(options);
 
             // to get this factor we choose an element that has a width defined in 'em'
@@ -91,15 +95,17 @@
         });
 
         it('should not allow activate a hidden tab', function () {
-            var options = [
+            var options = {
+                listTabs: [
                     { title: 'Tab 1' },
                     { title: 'Tab 2' },
                     { title: 'Tab 3' },
                     { title: 'Tab 4' },
                     { title: 'Tab 5' }
-                ];
+                ]
+            };
 
-            $('.myTestDiv').width('22em');
+            $('.myTestDiv').width('16em');
             $('.myTestDiv').smartTabs(options);
 
             $('.smartTabsTabTitle:nth-child(4)').hasClass('smartTabsHiddenTab').should.equal(true);
@@ -152,18 +158,20 @@
         });
 
         it('should list the hidden tabs when the popup shows up', function () {
-            var options = [
-                    { title: 'Tab 1' },
-                    { title: 'Tab 2' },
-                    { title: 'Tab 3' },
-                    { title: 'Tab 4' },
-                    { title: 'Tab 5' }
-                ],
+            var options = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ]
+                },
                 $list,
                 $tab,
                 i;
 
-            $('.myTestDiv').width('22em');
+            $('.myTestDiv').width('16em');
             $('.myTestDiv').smartTabs(options);
 
             // show the popup
@@ -173,7 +181,7 @@
             $('.smartTabsPopup > ul.smartTabsHiddenTabsList').should.have.length(1);
             $list = $('.smartTabsHiddenTabsList');
 
-            for (i = 0; i < options.length; i += 1) {
+            for (i = 1; i <= options.listTabs.length; i += 1) {
                 $tab = $('.smartTabsTabTitle:nth-child(' +  i + ')');
                 if ($tab.hasClass('smartTabsHiddenTab')) {
                     $list.find('li[data-tabid="' + $tab.attr('id') + '"]').should.have.length(1);
@@ -184,18 +192,20 @@
         });
 
         it('should move the selected hidden tab to the first position', function (done) {
-            var options = [
-                    { title: 'Tab 1' },
-                    { title: 'Tab 2' },
-                    { title: 'Tab 3' },
-                    { title: 'Tab 4' },
-                    { title: 'Tab 5' }
-                ],
+            var options = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ]
+                },
                 $selectedHiddenTab,
                 $firstTab,
                 tabId;
 
-            $('.myTestDiv').width('22em');
+            $('.myTestDiv').width('16em');
             $('.myTestDiv').smartTabs(options);
 
             // show the popup

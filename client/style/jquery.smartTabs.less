@@ -36,7 +36,7 @@
             left: 0;
             background-color: @activeColor;
             position: absolute;
-            z-index: 2;
+            z-index: 52;
             .drop-shadow(0; -0.05em; 0.2em; 0.3);
         }
 
@@ -46,7 +46,7 @@
             position: absolute;
             top: @headerHeight * 0.9;
             background-color: @activeColor;
-            z-index: 3;
+            z-index: 53;
         }
     }
 
@@ -62,13 +62,45 @@
         margin-top: @headerHeight * 0.1;
         height: @headerHeight * 0.8;
         line-height: @headerHeight * 0.8;
-        padding-left: 0.6em;
-        padding-right: 0.6em;
+        padding-left: 0.1em;
+        padding-right: 0.1em;
         margin-right: 1.2em;
         position: relative;
         cursor: pointer;
         color: lighten(@fontColor, 30%);
         .drop-shadow(0em; -0.03em; 0.05em; 0.3);
+        z-index: 1;
+
+        &:nth-child(1) { z-index: 40; }
+        &:nth-child(2) { z-index: 39; }
+        &:nth-child(3) { z-index: 38; }
+        &:nth-child(4) { z-index: 37; }
+        &:nth-child(5) { z-index: 36; }
+        &:nth-child(6) { z-index: 35; }
+        &:nth-child(7) { z-index: 34; }
+        &:nth-child(8) { z-index: 33; }
+        &:nth-child(9) { z-index: 32; }
+        &:nth-child(10) { z-index: 31; }
+        &:nth-child(11) { z-index: 30; }
+        &:nth-child(12) { z-index: 29; }
+        &:nth-child(13) { z-index: 28; }
+        &:nth-child(14) { z-index: 27; }
+        &:nth-child(15) { z-index: 26; }
+        &:nth-child(16) { z-index: 25; }
+        &:nth-child(17) { z-index: 24; }
+        &:nth-child(18) { z-index: 23; }
+        &:nth-child(19) { z-index: 22; }
+        &:nth-child(20) { z-index: 21; }
+        &:nth-child(21) { z-index: 20; }
+        &:nth-child(22) { z-index: 19; }
+        &:nth-child(23) { z-index: 18; }
+        &:nth-child(24) { z-index: 17; }
+        &:nth-child(25) { z-index: 16; }
+        &:nth-child(26) { z-index: 15; }
+        &:nth-child(27) { z-index: 14; }
+        &:nth-child(28) { z-index: 13; }
+        &:nth-child(29) { z-index: 12; }
+        &:nth-child(30) { z-index: 11; }
 
         &:before {
             content: "";
@@ -80,6 +112,7 @@
             .border-radius(0; 0; 0; 0.5em);
             .transform(skew(-20deg));
             .drop-shadow(-0.1em; 0.05em; 0.1em; 0.3);
+            z-index: -2;
         }
 
         &:after {
@@ -89,10 +122,40 @@
             height: @headerHeight * 0.8;
             position: absolute;
             right: -0.7em;
-            z-index: 1;
+            z-index: -1;
             .border-radius(0.5em);
             .transform(skew(20deg));
             .drop-shadow(0.1em; 0.05em; 0.1em; 0.3);
+        }
+
+        & > .closeable {
+            background-color: darken(@activeColor, 30%);
+            height: @headerHeight * 0.35;
+            width: @headerHeight * 0.35;
+            .rounded(@headerHeight * 0.35 / 2);
+            display: inline-block;
+            margin-left: 0.4em;
+
+            &:before,
+            &:after {
+                content: "";
+                background-color: darken(@activeColor, 16%);;
+                position: absolute;
+                top: @headerHeight * 0.275;
+                right: 0.4em;
+                height: @headerHeight * 0.35 * 0.6;
+                width: @headerHeight * 0.35 * 0.15;
+                .rotation(@deg:45deg)
+            }
+
+            &:before {
+                .rotation(@deg:45deg);   
+            }
+
+            &:after {
+                .rotation(@deg:-45deg);
+            }
+
         }
 
         &:hover {
@@ -103,18 +166,40 @@
             &:after {
                 .gradient(@hoverColor, darken(@hoverColor, 10%), lighten(@hoverColor, 10%));
             }
+
+            & > .closeable {
+                background-color: darken(@activeColor, 20%);
+
+                &:before,
+                &:after {
+                    background-color: darken(@activeColor, 8%);
+                }
+
+                &:hover {
+                    background-color: darken(@activeColor, 68%);
+                }
+            }
         }
 
         &.smartTabsActive {
             background: none;
             background-color: @activeColor;
-            z-index: 3;
+            z-index: 53;
             color: @fontColor;
 
             &:before,
             &:after {
                 background: none;
                 background-color: @activeColor;
+            }
+
+            & > .closeable {
+                background-color: darken(@activeColor, 12%);
+
+                &:before,
+                &:after {
+                    background-color: @activeColor;
+                }
             }
 
         }
@@ -129,14 +214,29 @@
                 color: lighten(@fontColor, 30%);
                 .gradient(@desactivateColor, darken(@desactivateColor, 10%), lighten(@desactivateColor, 10%));
             }
+
+            & > .closeable {
+                background-color: darken(@activeColor, 58%);
+
+                &:hover {
+                    background-color: darken(@activeColor, 58%);
+                }
+
+                &:before,
+                &:after {
+                    background-color: darken(@activeColor, 50%);
+                }
+            }
         }
+
+
     }
 
     .smartTabsShowHiddenTabs {
         position: absolute;
         right: -0.1em;
         top: -0.1em;
-        z-index: 3;
+        z-index: 53;
         height: @headerHeight * 0.9;
         width: @headerHeight * 0.9; // we want it to be square
         background-color: @secondColor;
@@ -203,7 +303,7 @@
         height: 100%;
         width: 100%;
         background-color: rgba(0, 0, 0, 0.3);
-        z-index: 3;
+        z-index: 53;
     }
 
     .smartTabsPopup {

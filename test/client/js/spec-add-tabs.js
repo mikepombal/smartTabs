@@ -18,11 +18,13 @@
              * and give it the focus
              */
 
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 
@@ -45,11 +47,13 @@
              * and give the focus to the first one in the list
              */
 
-            var options = [
-                { title: 'Tab 1' },
-                { title: 'Tab 2' },
-                { title: 'Tab 3' }
-            ];
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ]
+            };
 
             $('.myTestDiv').smartTabs(options);
 

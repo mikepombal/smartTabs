@@ -4,7 +4,14 @@
     'use strict';
 
     var methods,
-        tabIdCounter = 0;
+        tabIdCounter = 0,
+        // default values
+        defaults = {
+            // the list of tab objects the control contains
+            listTabs: [],
+            // by default all the tabs cannot be removed
+            areCloseable: false
+        };
 
     //////////////////////
     // helper functions //
@@ -239,6 +246,11 @@
         $content.attr('data-tabid', tabId);
         $content.html($('#' + tabConfig.templateId).html());
 
+        // if the tab can be removed than add button to do so
+        if (tabConfig.isCloseable) {
+            $title.append('<i class="closeable"></i>');
+        }
+
         if (tabConfig.isActive) {
             $title.addClass('smartTabsActive');
             $content.show();
@@ -255,22 +267,26 @@
 
     /**
      * Create a tab for every item in the list
-     * @param  {Object} $el      The jQuery object of the current instance
-     * @param  {Object} listTabs The list of objects to be showns
+     * @param  {Object} $el     The jQuery object of the current instance
+     * @param  {Object} options The user options to use (if not defined than the default ones)
      */
-    function createTabs($el, listTabs) {
+    function createTabs($el, options) {
         var i,
             tab,
             htmlTitles = '',
             htmlContents = '',
             tabConfig;
 
-
-        for (i = 0; i < listTabs.length; i += 1) {
-            tabConfig = listTabs[i];
+        for (i = 0; i < options.listTabs.length; i += 1) {
+            tabConfig = options.listTabs[i];
 
             if (i === 0) {
                 tabConfig.isActive = true;
+            }
+
+            // check if the tab can be removed
+            if (options.areCloseable) {
+                tabConfig.isCloseable = true;
             }
 
             tab = createTab(tabConfig);
@@ -329,7 +345,7 @@
 
             initEvents($this);
 
-            createTabs($this, options || []);
+            createTabs($this, $.extend({}, defaults, options));
         },
 
         /**

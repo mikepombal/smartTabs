@@ -14,15 +14,19 @@
         });
 
         it('should allow create more than one instance of smartTabs', function () {
-            var options1 = [
-                    { title: 'Tab 1' },
-                    { title: 'Tab 2' }
-                ],
-                options2 = [
-                    { title: 'Tab 3' },
-                    { title: 'Tab 4' },
-                    { title: 'Tab 5' }
-                ];
+            var options1 = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' }
+                    ]
+                },
+                options2 = {
+                    listTabs: [
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ]
+                };
 
             $('.myTestDiv1').smartTabs(options1);
             $('.myTestDiv2').smartTabs(options2);
