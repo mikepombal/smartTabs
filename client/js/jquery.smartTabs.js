@@ -182,6 +182,24 @@
     }
 
     /**
+     * Remove a tab from the control
+     * @param  {Object} $el  The jQuery object of the current instance
+     * @param  {Object} $tab The jQuery object of the tab to be removed
+     */
+    function removeTab($el, $tab) {
+
+        $tab.animate({ 'top': '2em' }, 200, function () {
+
+            $tab.animate({ 'width': 0, 'margin-right': 0 }, 200, function () {
+                $tab.remove();
+
+                defineTabsVisibility($el);
+            });
+        });
+
+    }
+
+    /**
      * Define all the needed events
      * @param  {Object} $el The jQuery object of the current instance
      */
@@ -227,6 +245,13 @@
          */
         $el.on('click', '.smartTabsHiddenTabsList > li', function () {
             selectTab($el, $(this).data('tabid'), true);
+        });
+
+        /**
+         * Event triggered when removing a tab
+         */
+        $el.on('click', 'i.closeable', function () {
+            removeTab($el, $(this).parent());
         });
     }
 

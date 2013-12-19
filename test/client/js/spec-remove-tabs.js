@@ -34,7 +34,34 @@
             $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="closeable"></i>');
 
         });
-        it('should remove a tab from the list when closing it');
+
+        it('should remove a tab from the list when closing it', function (done) {
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ],
+                areCloseable: true
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            $('.smartTabsTabTitle:nth-child(1)').find('.closeable').click();
+
+            // wait for the animation ending
+            setTimeout(function () {
+                $('.smartTabsTabTitle').should.have.length(2);
+                $('.smartTabsTabTitle:nth-child(1)').text().should.equal('Tab 2');
+                $('.smartTabsTabTitle:nth-child(2)').text().should.equal('Tab 3');
+
+                done();
+            }, 500);
+        });
+
+
+        it('should also remove the content of the tab being removed');
+
         it('should allow specifying the closable status for each tab');
         it('should remove a tab from the list when clicking on its close button');
     });
