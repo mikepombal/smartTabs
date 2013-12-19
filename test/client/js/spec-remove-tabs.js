@@ -59,6 +59,27 @@
             }, 500);
         });
 
+        it('should keep the active status of a tab if it is not the one being removed', function (done) {
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ],
+                areCloseable: true
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            $('.smartTabsTabTitle:nth-child(2)').find('.closeable').click();
+
+            // wait for the animation ending
+            setTimeout(function () {
+                $('.smartTabsTabTitle:nth-child(1).smartTabsActive').should.have.length(1);
+
+                done();
+            }, 500);
+        });
 
         it('should also remove the content of the tab being removed');
 

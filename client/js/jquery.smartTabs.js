@@ -250,8 +250,10 @@
         /**
          * Event triggered when removing a tab
          */
-        $el.on('click', 'i.closeable', function () {
+        $el.on('click', 'i.closeable', function (e) {
             removeTab($el, $(this).parent());
+            // avoid firing the select tab event
+            e.stopPropagation();
         });
     }
 
