@@ -81,6 +81,29 @@
             }, 500);
         });
 
+        it('should give the focus to the first tab if it is the active tab being removed', function (done) {
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ],
+                areCloseable: true
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            $('.smartTabsTabTitle:nth-child(3)').click();
+            $('.smartTabsTabTitle:nth-child(3)').find('.closeable').click();
+
+            // wait for the animation ending
+            setTimeout(function () {
+                $('.smartTabsTabTitle:nth-child(1).smartTabsActive').should.have.length(1);
+
+                done();
+            }, 500);
+        });
+
         it('should also remove the content of the tab being removed');
 
         it('should allow specifying the closable status for each tab');

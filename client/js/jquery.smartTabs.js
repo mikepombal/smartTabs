@@ -188,6 +188,16 @@
      */
     function removeTab($el, $tab) {
 
+        // If the removed tab has is active then give the focus to the first one
+        // (if it is the first one being removed then give it to the following tab)
+        if ($tab.hasClass('smartTabsActive')) {
+            if ($tab.attr('id') === $el.find('.smartTabsTabTitle:nth-child(1)').attr('id')) {
+                $el.find('.smartTabsTabTitle:nth-child(2)').click();
+            } else {
+                $el.find('.smartTabsTabTitle:nth-child(1)').click();
+            }
+        }
+
         $tab.animate({ 'top': '2em' }, 200, function () {
 
             $tab.animate({ 'width': 0, 'margin-right': 0 }, 200, function () {
