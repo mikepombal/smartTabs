@@ -104,7 +104,43 @@
             }, 500);
         });
 
-        it('should also remove the content of the tab being removed');
+        describe('Tab content', function () {
+            beforeEach(function () {
+                $('body').append('<script id="template1" type="text/template">Template 1</script>');
+                $('body').append('<script id="template2" type="text/template">Template 2</script>');
+                $('body').append('<script id="template3" type="text/template">Template 3</script>');
+            });
+            afterEach(function () {
+                $('#template1').remove();
+                $('#template2').remove();
+                $('#template3').remove();
+            });
+
+
+            it('should also remove the content of the tab being removed', function (done) {
+                var options = {
+                    listTabs: [
+                        { title: 'Tab 1', templateId: 'template1' },
+                        { title: 'Tab 2', templateId: 'template2' },
+                        { title: 'Tab 3', templateId: 'template3' }
+                    ],
+                    areCloseable: true
+                };
+
+                $('.myTestDiv').smartTabs(options);
+
+                $('.smartTabsTabTitle:nth-child(2)').find('.closeable').click();
+
+                // wait for the animation ending
+                setTimeout(function () {
+                    $('.smartTabsBody > div.smartTabsContent').should.have.length(2);
+                    $('.smartTabsContent:nth-child(1)').html().should.equal($('#template1').html());
+                    $('.smartTabsContent:nth-child(2)').html().should.equal($('#template3').html());
+
+                    done();
+                }, 500);
+            });
+        });
 
         it('should allow specifying the closable status for each tab');
         it('should remove a tab from the list when clicking on its close button');

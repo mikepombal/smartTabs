@@ -198,6 +198,10 @@
             }
         }
 
+        // remove the content of the tab
+        $el.find('.smartTabsContent[data-tabid="' + $tab.attr('id') + '"]').remove();
+
+        // begin the animation of removing the tab title
         $tab.animate({ 'top': '2em' }, 200, function () {
 
             $tab.animate({ 'width': 0, 'margin-right': 0 }, 200, function () {
