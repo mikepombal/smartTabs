@@ -142,8 +142,52 @@
             });
         });
 
-        it('should allow specifying the closable status for each tab');
-        it('should remove a tab from the list when clicking on its close button');
+        it('should allow specifying only one or more tabs as closeable', function () {
+            /**
+             * If the global configuration areCloseable is set to false (or not defined)
+             * it should be possible to make one or more tabs closeable by configuring
+             * the tab property isCloseable as true
+             */
+
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2', isCloseable: true },
+                    { title: 'Tab 3' }
+                ]
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            $('.smartTabsTabTitle:nth-child(1)').html().should.not.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(2)').html().should.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(3)').html().should.not.contain('<i class="closeable"></i>');
+
+        });
+
+        it('should allow overwriting the areCloseable property for each tab', function () {
+            /**
+             * If the global configuration areCloseable is set to true
+             * it should be possible to make one or more tabs as not closeable by configuring
+             * the tab property isCloseable as false
+             */
+
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2', isCloseable: false },
+                    { title: 'Tab 3' }
+                ],
+                areCloseable: true
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(2)').html().should.not.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="closeable"></i>');
+
+        });
     });
 
 }(jQuery));

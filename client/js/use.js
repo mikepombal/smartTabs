@@ -7,7 +7,7 @@
         listTabs: [
             { title: 'Tab 1', templateId: 'template1' },
             { title: 'Super Tab 2', templateId: 'template2' },
-            { title: 'Tab 3', templateId: 'template3' },
+            { title: 'Tab 3', templateId: 'template3', isCloseable: false },
             { title: 'Another Tab' },
             { title: 'Tab 5', templateId: 'template3' },
             { title: 'The one before the last', templateId: 'template3' },

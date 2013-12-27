@@ -325,8 +325,8 @@
                 tabConfig.isActive = true;
             }
 
-            // check if the tab can be removed
-            if (options.areCloseable) {
+            // define if the tab can be removed depending in both individual and global tab configuration
+            if (tabConfig.isCloseable === undefined && options.areCloseable) {
                 tabConfig.isCloseable = true;
             }
 
