@@ -273,11 +273,13 @@
 
     /**
      * Define for a tab its html of the title and the content
+     * @param  {Object} $el       The jQuery object of the current instance
      * @param  {Object} tabConfig The configuration of the tab
      * @return {Array}           An array with both html (title and content) and also the tab Id
      */
-    function createTab(tabConfig) {
-        var $title, $content, tabId = getTabId();
+    function createTab($el, tabConfig) {
+        var $title, $content, tabId = getTabId(),
+            settings = $el.data('smartTabsSettings');
 
         $title = $('<li class="smartTabsTabTitle"></li>');
         $title.attr('id', tabId);
@@ -286,6 +288,12 @@
         $content = $('<div class="smartTabsContent"></div>');
         $content.attr('data-tabid', tabId);
         $content.html($('#' + tabConfig.templateId).html());
+
+        // define if the tab can be removed depending in both individual and global tab configuration
+        if (tabConfig.isCloseable === undefined && settings.areCloseable) {
+            tabConfig.isCloseable = true;
+        }
+
 
         // if the tab can be removed than add button to do so
         if (tabConfig.isCloseable) {
@@ -309,28 +317,23 @@
     /**
      * Create a tab for every item in the list
      * @param  {Object} $el     The jQuery object of the current instance
-     * @param  {Object} options The user options to use (if not defined than the default ones)
      */
-    function createTabs($el, options) {
+    function createTabs($el) {
         var i,
             tab,
             htmlTitles = '',
             htmlContents = '',
-            tabConfig;
+            tabConfig,
+            settings = $el.data('smartTabsSettings');
 
-        for (i = 0; i < options.listTabs.length; i += 1) {
-            tabConfig = options.listTabs[i];
+        for (i = 0; i < settings.listTabs.length; i += 1) {
+            tabConfig = settings.listTabs[i];
 
             if (i === 0) {
                 tabConfig.isActive = true;
             }
 
-            // define if the tab can be removed depending in both individual and global tab configuration
-            if (tabConfig.isCloseable === undefined && options.areCloseable) {
-                tabConfig.isCloseable = true;
-            }
-
-            tab = createTab(tabConfig);
+            tab = createTab($el, tabConfig);
 
             htmlTitles += tab.tabTitleHtml;
             htmlContents += tab.tabContentHtml;
@@ -349,7 +352,7 @@
      * @param {object} tabConfig The configuration of the new tab
      */
     function addNewTab($el, tabConfig) {
-        var tab = createTab(tabConfig);
+        var tab = createTab($el, tabConfig);
 
         $el.find('.smartTabsList').append(tab.tabTitleHtml);
         $el.find('.smartTabsBody').append(tab.tabContentHtml);
@@ -382,11 +385,14 @@
         init: function init(options) {
             var $this = $(this);
 
+            // keep the global settings
+            $this.data('smartTabsSettings', $.extend({}, defaults, options));
+
             initHtml($this);
 
             initEvents($this);
 
-            createTabs($this, $.extend({}, defaults, options));
+            createTabs($this);
         },
 
         /**

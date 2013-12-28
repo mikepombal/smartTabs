@@ -188,6 +188,32 @@
             $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="closeable"></i>');
 
         });
+
+        it('should give the closeable status to any new tab', function (done) {
+            /**
+             * If the global configuration areCloseable is set to true
+             */
+
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1' },
+                    { title: 'Tab 2' },
+                    { title: 'Tab 3' }
+                ],
+                areCloseable: true
+            };
+
+            $('.myTestDiv').smartTabs(options);
+            $('.myTestDiv').smartTabs('addTab', { title: 'New Tab' });
+
+            // wait for the animation ending
+            setTimeout(function () {
+                $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="closeable"></i>');
+
+                done();
+            }, 500);
+
+        });
     });
 
 }(jQuery));
