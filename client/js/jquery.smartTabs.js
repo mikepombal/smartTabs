@@ -287,7 +287,17 @@
 
         $content = $('<div class="smartTabsContent"></div>');
         $content.attr('data-tabid', tabId);
-        $content.html($('#' + tabConfig.templateId).html());
+
+        if (tabConfig.templateId) {
+            // check if the content comes from either a script id
+            $content.html($('#' + tabConfig.templateId).html());
+        } else if (tabConfig.templateUrl) {
+            // or is an ajax request
+            $.get(tabConfig.templateUrl, function (html) {
+                $('.smartTabsContent[data-tabid="' + tabId + '"]').html(html);
+            });
+        }
+        //$content.html('<div>TEST</div>');
 
         // define if the tab can be removed depending in both individual and global tab configuration
         if (tabConfig.isCloseable === undefined && settings.areCloseable) {
