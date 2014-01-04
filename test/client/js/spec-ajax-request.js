@@ -31,6 +31,33 @@
 
         });
 
+        it('should allow calling a function callback once the template is loaded', function (done) {
+            var options = {
+                listTabs: [
+                    {
+                        title: 'Tab 1',
+                        templateUrl: './templates/template1.html',
+                        afterLoadingTemplate: function () {
+                            $('.myTestDiv').find('h1').text('After Loading Template');
+                        }
+                    }
+                ]
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            // wait for the ajax request being done
+            setTimeout(function () {
+                $('.smartTabsContent:nth-child(1)').html().should.contain('<h1>After Loading Template</h1>');
+
+                done();
+            }, 500);
+
+        });
+
+        it('should show a "please wait" message while the template is being loaded');
+        it('should show a message if the template was not found');
+
     });
 
 }(jQuery));

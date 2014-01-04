@@ -295,6 +295,10 @@
             // or is an ajax request
             $.get(tabConfig.templateUrl, function (html) {
                 $('.smartTabsContent[data-tabid="' + tabId + '"]').html(html);
+                // if the user has defined a callback function to run after loading the template then run it
+                if (tabConfig.afterLoadingTemplate) {
+                    tabConfig.afterLoadingTemplate();
+                }
             });
         }
         //$content.html('<div>TEST</div>');
