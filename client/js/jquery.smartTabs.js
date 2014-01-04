@@ -299,6 +299,9 @@
                 if (tabConfig.afterLoadingTemplate) {
                     tabConfig.afterLoadingTemplate();
                 }
+            }).fail(function () {
+                // if it fails to load the template then show a message error
+                $('.smartTabsContent[data-tabid="' + tabId + '"]').html('<p>Error! The tab content was not found</p>');
             });
         }
         //$content.html('<div>TEST</div>');

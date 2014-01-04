@@ -55,8 +55,22 @@
 
         });
 
-        it('should show a "please wait" message while the template is being loaded');
-        it('should show a message if the template was not found');
+        it('should show a message if the template was not found', function (done) {
+            var options = {
+                listTabs: [
+                    { title: 'Tab 1', templateUrl: './templates/templatefake.html' }
+                ]
+            };
+
+            $('.myTestDiv').smartTabs(options);
+
+            // wait for the ajax request being done
+            setTimeout(function () {
+                $('.smartTabsContent:nth-child(1)').text().should.contain('Error! The tab content was not found');
+
+                done();
+            }, 500);
+        });
 
     });
 
