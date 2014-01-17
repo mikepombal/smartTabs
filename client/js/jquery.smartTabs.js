@@ -10,7 +10,7 @@
             // the list of tab objects the control contains
             listTabs: [],
             // by default all the tabs cannot be removed
-            areCloseable: false
+            areRemovable: false
         };
 
     //////////////////////
@@ -264,7 +264,7 @@
         /**
          * Event triggered when removing a tab
          */
-        $el.on('click', 'i.closeable', function (e) {
+        $el.on('click', 'i.removable', function (e) {
             removeTab($el, $(this).parent());
             // avoid firing the select tab event
             e.stopPropagation();
@@ -307,14 +307,14 @@
         //$content.html('<div>TEST</div>');
 
         // define if the tab can be removed depending in both individual and global tab configuration
-        if (tabConfig.isCloseable === undefined && settings.areCloseable) {
-            tabConfig.isCloseable = true;
+        if (tabConfig.isRemovable === undefined && settings.areRemovable) {
+            tabConfig.isRemovable = true;
         }
 
 
         // if the tab can be removed than add button to do so
-        if (tabConfig.isCloseable) {
-            $title.append('<i class="closeable"></i>');
+        if (tabConfig.isRemovable) {
+            $title.append('<i class="removable"></i>');
         }
 
         if (tabConfig.isActive) {

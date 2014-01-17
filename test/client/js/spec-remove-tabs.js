@@ -14,7 +14,7 @@
 
         it('should show an icon to close the tabs if needed', function () {
             /**
-             * If the global configuration areCloseable is set to true
+             * If the global configuration areRemovable is set to true
              * then all the tabs should contain an icon to close it
              */
 
@@ -24,14 +24,14 @@
                     { title: 'Tab 2' },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
 
-            $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(2)').html().should.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(2)').html().should.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="removable"></i>');
 
         });
 
@@ -42,12 +42,12 @@
                     { title: 'Tab 2' },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
 
-            $('.smartTabsTabTitle:nth-child(1)').find('.closeable').click();
+            $('.smartTabsTabTitle:nth-child(1)').find('.removable').click();
 
             // wait for the animation ending
             setTimeout(function () {
@@ -66,12 +66,12 @@
                     { title: 'Tab 2' },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
 
-            $('.smartTabsTabTitle:nth-child(2)').find('.closeable').click();
+            $('.smartTabsTabTitle:nth-child(2)').find('.removable').click();
 
             // wait for the animation ending
             setTimeout(function () {
@@ -88,13 +88,13 @@
                     { title: 'Tab 2' },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
 
             $('.smartTabsTabTitle:nth-child(3)').click();
-            $('.smartTabsTabTitle:nth-child(3)').find('.closeable').click();
+            $('.smartTabsTabTitle:nth-child(3)').find('.removable').click();
 
             // wait for the animation ending
             setTimeout(function () {
@@ -124,12 +124,12 @@
                         { title: 'Tab 2', templateId: 'template2' },
                         { title: 'Tab 3', templateId: 'template3' }
                     ],
-                    areCloseable: true
+                    areRemovable: true
                 };
 
                 $('.myTestDiv').smartTabs(options);
 
-                $('.smartTabsTabTitle:nth-child(2)').find('.closeable').click();
+                $('.smartTabsTabTitle:nth-child(2)').find('.removable').click();
 
                 // wait for the animation ending
                 setTimeout(function () {
@@ -142,56 +142,56 @@
             });
         });
 
-        it('should allow specifying only one or more tabs as closeable', function () {
+        it('should allow specifying only one or more tabs as removable', function () {
             /**
-             * If the global configuration areCloseable is set to false (or not defined)
-             * it should be possible to make one or more tabs closeable by configuring
-             * the tab property isCloseable as true
+             * If the global configuration areRemovable is set to false (or not defined)
+             * it should be possible to make one or more tabs removable by configuring
+             * the tab property isRemovable as true
              */
 
             var options = {
                 listTabs: [
                     { title: 'Tab 1' },
-                    { title: 'Tab 2', isCloseable: true },
+                    { title: 'Tab 2', isRemovable: true },
                     { title: 'Tab 3' }
                 ]
             };
 
             $('.myTestDiv').smartTabs(options);
 
-            $('.smartTabsTabTitle:nth-child(1)').html().should.not.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(2)').html().should.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(3)').html().should.not.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(1)').html().should.not.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(2)').html().should.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(3)').html().should.not.contain('<i class="removable"></i>');
 
         });
 
-        it('should allow overwriting the areCloseable property for each tab', function () {
+        it('should allow overwriting the areRemovable property for each tab', function () {
             /**
-             * If the global configuration areCloseable is set to true
-             * it should be possible to make one or more tabs as not closeable by configuring
-             * the tab property isCloseable as false
+             * If the global configuration areRemovable is set to true
+             * it should be possible to make one or more tabs as not removable by configuring
+             * the tab property isRemovable as false
              */
 
             var options = {
                 listTabs: [
                     { title: 'Tab 1' },
-                    { title: 'Tab 2', isCloseable: false },
+                    { title: 'Tab 2', isRemovable: false },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
 
-            $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(2)').html().should.not.contain('<i class="closeable"></i>');
-            $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="closeable"></i>');
+            $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(2)').html().should.not.contain('<i class="removable"></i>');
+            $('.smartTabsTabTitle:nth-child(3)').html().should.contain('<i class="removable"></i>');
 
         });
 
-        it('should give the closeable status to any new tab', function (done) {
+        it('should give the removable status to any new tab', function (done) {
             /**
-             * If the global configuration areCloseable is set to true
+             * If the global configuration areRemovable is set to true
              */
 
             var options = {
@@ -200,7 +200,7 @@
                     { title: 'Tab 2' },
                     { title: 'Tab 3' }
                 ],
-                areCloseable: true
+                areRemovable: true
             };
 
             $('.myTestDiv').smartTabs(options);
@@ -208,7 +208,7 @@
 
             // wait for the animation ending
             setTimeout(function () {
-                $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="closeable"></i>');
+                $('.smartTabsTabTitle:nth-child(1)').html().should.contain('<i class="removable"></i>');
 
                 done();
             }, 500);

@@ -128,7 +128,7 @@
             .drop-shadow(0.1em; 0.05em; 0.1em; 0.3);
         }
 
-        & > .closeable {
+        & > .removable {
             background-color: darken(@activeColor, 30%);
             height: @headerHeight * 0.35;
             width: @headerHeight * 0.35;
@@ -167,7 +167,7 @@
                 .gradient(@hoverColor, darken(@hoverColor, 10%), lighten(@hoverColor, 10%));
             }
 
-            & > .closeable {
+            & > .removable {
                 background-color: darken(@activeColor, 20%);
 
                 &:before,
@@ -193,7 +193,7 @@
                 background-color: @activeColor;
             }
 
-            & > .closeable {
+            & > .removable {
                 background-color: darken(@activeColor, 12%);
 
                 &:before,
@@ -215,7 +215,7 @@
                 .gradient(@desactivateColor, darken(@desactivateColor, 10%), lighten(@desactivateColor, 10%));
             }
 
-            & > .closeable {
+            & > .removable {
                 background-color: darken(@activeColor, 58%);
 
                 &:hover {
