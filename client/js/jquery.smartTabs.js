@@ -66,7 +66,7 @@
             rigthEdge = $el.find('.smartTabsHeader').width();
 
             for (i = $el.find('.smartTabsTabTitle').length; i > 0; i -= 1) {
-                $tab = $('.smartTabsTabTitle:nth-child(' + i + ')');
+                $tab = $el.find('.smartTabsTabTitle:nth-child(' + i + ')');
 
                 // to get the right position of the tab we first get its left one
                 rightPosition = $tab.position().left;

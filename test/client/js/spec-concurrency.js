@@ -37,6 +37,45 @@
             $('.myTestDiv1 .smartTabsTabTitle:nth-child(1)').text().should.equal('Tab 1');
             $('.myTestDiv2 .smartTabsTabTitle:nth-child(2)').text().should.equal('Tab 4');
         });
+
+
+        it('should not interfere the tab hidden status between instances', function () {
+            /**
+             * This test was written due to the issue #7 as some hidden where hidden
+             * by mistake
+             */
+
+            var options1 = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' },
+                        { title: 'Tab 6' },
+                        { title: 'Tab 7' }
+                    ]
+                },
+                options2 = {
+                    listTabs: [
+                        { title: 'Tab 1' },
+                        { title: 'Tab 2' },
+                        { title: 'Tab 3' },
+                        { title: 'Tab 4' },
+                        { title: 'Tab 5' }
+                    ]
+                };
+
+            $('.myTestDiv1').width('20em');
+            $('.myTestDiv2').width('15em');
+
+            $('.myTestDiv1').smartTabs(options1);
+            $('.myTestDiv2').smartTabs(options2);
+
+            $('.myTestDiv1 .smartTabsTabTitle:nth-child(3)').hasClass('smartTabsHiddenTab').should.equal(false);
+
+        });
+
     });
 
 }(jQuery));
