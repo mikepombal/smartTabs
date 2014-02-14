@@ -13,9 +13,13 @@
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        #myTab {
+        #myTab, .demo {
             border: solid 1px #888888;
             font-size: 30px;
+        }
+
+        #demo2 {
+            font-size: 20px;
         }
 
     </style>
@@ -23,19 +27,39 @@
 </head>
 <body>
 
-
-    <div id="myTab">
-    </div>
-
     <h4>Most basic way, 3 tab with script template</h4>
-    <h4>Active Tab</h4>
-    <h4>Size unit in em</h4>
+    <div id="demo1" class="demo"></div>
+
+    <h4>Size unit in em (add a slider to change the font size)</h4>
+    <button id="demo2IncreaseButton">+</button>
+    <button id="demo2DecreaseButton">-</button>
+    <span id="currentFontSize">20</span>px
+    <div id="demo2" class="demo"></div>
+
     <h4>Show example when the tabs display is wider that the container (explain overlay)</h4>
-    <h4>Adding a tab programmatically</h4>
+    <div id="demo3" class="demo"></div>
+
     <h4>Global Removable option (explain focus logic when removing tab, and its contents)</h4>
+    <button id="demo4Reset">Reset</button>
+    <div id="demo4" class="demo"></div>
+
     <h4>Tab Removable option (use an icon like home for a non removable tab)</h4>
+    <button id="demo5Reset">Reset</button>
+    <div id="demo5" class="demo"></div>
+
     <h4>Getting tab content from AJAX request (explain also message error)</h4>
+    <div id="demo6" class="demo"></div>
+
     <h4>Callback function when tab content is loaded</h4>
+    <div id="demo7" class="demo"></div>
+
+    <h4>Adding one tab programmatically</h4>
+    <button id="demo8AddTab">Add Tab</button>
+    <div id="demo8" class="demo"></div>
+
+    <h4>Adding several tabs programmatically</h4>
+    <button id="demo9AddTabs">Add Tabs</button>
+    <div id="demo9" class="demo"></div>
 
 
     <script id="template1" type="text/template">Template 1</script>
