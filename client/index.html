@@ -3,68 +3,213 @@
     <title>smartTabs</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF8">
 
-    <link rel="stylesheet" type="text/css" href="./style/jquery.smartTabs.css">
-
-    <style type="text/css">
-
-        body {
-            margin: 100px; 
-            background-color: #F2F2F2;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        #myTab, .demo {
-            border: solid 1px #888888;
-            font-size: 30px;
-        }
-
-        #demo2 {
-            font-size: 20px;
-        }
-
-    </style>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style/jquery.smartTabs.css">
+    <link rel="stylesheet" href="./style/index.css">
 
 </head>
 <body>
 
-    <h4>Most basic way, 3 tab with script template</h4>
-    <div id="demo1" class="demo"></div>
+    <header>
+        <div class="text-center">smartTabs</div>
+        
+    </header>
 
-    <h4>Size unit in em (add a slider to change the font size)</h4>
-    <button id="demo2IncreaseButton">+</button>
-    <button id="demo2DecreaseButton">-</button>
-    <span id="currentFontSize">20</span>px
-    <div id="demo2" class="demo"></div>
+    <div class="container">
 
-    <h4>Show example when the tabs display is wider that the container (explain overlay)</h4>
-    <div id="demo3" class="demo"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>summary</h1>
+                <p>bla bla bla</p>
+            </div>
+        </div>
 
-    <h4>Global Removable option (explain focus logic when removing tab, and its contents)</h4>
-    <button id="demo4Reset">Reset</button>
-    <div id="demo4" class="demo"></div>
+        <div class="row">
 
-    <h4>Tab Removable option (use an icon like home for a non removable tab)</h4>
-    <button id="demo5Reset">Reset</button>
-    <div id="demo5" class="demo"></div>
+            <div class="col-md-3 col-md-push-9">
+            </div>
 
-    <h4>Getting tab content from AJAX request (explain also message error)</h4>
-    <div id="demo6" class="demo"></div>
+            <div class="col-md-9 col-md-pull-3">
 
-    <h4>Callback function when tab content is loaded</h4>
-    <div id="demo7" class="demo"></div>
+                <div class="demoSection">
+                    <h1>Basic Usage</h1>
+                    <div class="sectionContent">
+                        <p class="lead">
+                            The minimum configuration to initiate a smartTabs instance is defining a list of tabs to be displayed. Every tab should contain both 'title' and 'templateId' properties. The 'templateId' is the Id of the <code>&lt;script&gt;</code> tag where the template is contained.
+                        </p>
+                        <div id="demo1" class="demo"></div>
+                        <pre>
+var prop = {
+    listTabs: [
+        { title: 'Tab 1', templateId: 'template1' },
+        { title: 'Tab 2', templateId: 'template2' },
+        { title: 'Tab 3', templateId: 'template3' }
+    ]
+};
 
-    <h4>Adding one tab programmatically</h4>
-    <button id="demo8AddTab">Add Tab</button>
-    <div id="demo8" class="demo"></div>
+$('#demo1').smartTabs(prop);
 
-    <h4>Adding several tabs programmatically</h4>
-    <button id="demo9AddTabs">Add Tabs</button>
-    <div id="demo9" class="demo"></div>
+                        </pre>
+                        <pre>
+&lt;!-- Templates --&gt;
+&lt;script id="template1" type="text/template"&gt;
+        &lt;div class="template"&gt;
+            &lt;h1&gt;Template #1&lt;/h1&gt;
+            &lt;p&gt;
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+            &lt;/p&gt;
+        &lt;/div&gt;
+&lt;/script&gt;
+
+...
+                        </pre>
+                    </div>
+                </div>
 
 
-    <script id="template1" type="text/template">Template 1</script>
-    <script id="template2" type="text/template"><div> This is my Template 2</div><div> This is my Template 2</div><div> This is my Template 2</div><div> This is my Template 2</div></script>
-    <script id="template3" type="text/template"><strong><em>Template 3</em></strong></script>
+                <div class="demoSection">
+                    <h1>Em Unit</h1>
+                    <div class="sectionContent">
+                        <p class="lead">
+                            The smartTabs plugin uses 'em' unit keeping a correct display no mater the font size used.
+                        </p>
+                        <form class="form-inline">
+                            <button type="button" id="demo2IncreaseButton" class="btn btn-primary">+</button>
+                            <button type="button" id="demo2DecreaseButton" class="btn btn-primary">-</button>
+                            <div class="form-group">
+                                <span id="currentFontSize">16</span>px
+                            </div>
+                        </form>
+
+                        <div id="demo2" class="demo"></div>
+                    </div>
+                </div>
+
+
+                <div class="demoSection">
+                    <h1>Lot of tabs</h1>
+                    <div class="sectionContent">
+                        <p class="lead">When the control is not wide enough to display all the tabs, it is shown a button at the top right corner. When clicking on this one an ovelay is created and it shown the list of tabs not fully displayed. When selecting one tab from the list, this one is moved to the first position</p>
+                        <div id="demo3" class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Removing Tabs</h1>
+                    <div class="sectionContent">
+                        <p class="lead">
+                            There is a property to make tabs being removable. When turned on an icon is drawn in every tab (the icon is fully made using CSS technics avoiding the needs of an image). Clicking on this icon will remove the tab from the list. The focus will be set to the first tab if the one being removed had it.
+                        </p>
+                        <form class="form-inline">
+                            <button type="button" id="demo4Reset" class="btn btn-primary">Reset</button>
+                        </form>
+                        <div id="demo4" class="demo"></div>
+                        <pre>
+var prop = {
+    listTabs: [
+        { title: 'Tab 1', templateId: 'template1' },
+        { title: 'Tab 2', templateId: 'template2' },
+        { title: 'Tab 3', templateId: 'template3' }
+    ],
+    <strong>areRemovable: true</strong>
+};
+
+$('#demo4').smartTabs(prop);
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Removing Specific Tabs</h1>
+                    <div class="sectionContent">
+                        <p class="lead">
+                            Sometimes it can be handy to only define some specific tabs to be removable. For that there is a property ("<code>isRemovable</code>") which can be defined in the tab configuration. This property will overide the global one ("<code>areRemovable</code>") of the control.
+                        </p>
+                        <form class="form-inline">
+                            <button type="button" id="demo5Reset" class="btn btn-primary">Reset</button>
+                        </form>
+                        <div id="demo5" class="demo"></div>
+                        <pre>
+var prop = {
+    listTabs: [
+        { title: 'Home', templateId: 'template1' },
+        { title: 'Tab 2', templateId: 'template2'<strong>, isRemovable: true</strong> },
+        { title: 'Tab 3', templateId: 'template3'<strong>, isRemovable: true</strong> }
+    ]
+};
+
+$('#demo5').smartTabs(prop);
+                        </pre>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Ajax Request</h1>
+                    <div class="sectionContent">
+                        <p class="lead">
+                            It is possible to get the content of a tab from the server via Ajax request. To do so use the "<code>templateUrl</code>" property instead of the "<code>templateId</code>" one.
+                        </p>
+                        <div id="demo6" class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Callback</h1>
+                    <div class="sectionContent">
+                        <p class="lead">Callback function when tab content is loaded</p>
+                        <div id="demo7" class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Adding Tab</h1>
+                    <div class="sectionContent">
+                        <p class="lead">Adding one tab programmatically</p>
+                        <button id="demo8AddTab">Add Tab</button>
+                        <div id="demo8" class="demo"></div>
+                    </div>
+                </div>
+
+                <div class="demoSection">
+                    <h1>Adding Tabs</h1>
+                    <div class="sectionContent">
+                        <p class="lead">Adding several tabs programmatically</p>
+                        <button id="demo9AddTabs">Add Tabs</button>
+                        <div id="demo9" class="demo"></div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <script id="template1" type="text/template">
+        <div class="template">
+            <h1>Template #1</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...
+            </p>
+        </div>
+    </script>
+    <script id="template2" type="text/template">
+        <div class="template">
+            <h1>Template #2</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat...
+            </p>
+        </div>
+    </script>
+    <script id="template3" type="text/template">
+        <div class="template">
+            <h1>Template #3</h1>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </p>
+        </div>
+    </script>
 
     <script type="text/javascript" src="./vendors/jquery/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="./js/jquery.smartTabs.js"></script>

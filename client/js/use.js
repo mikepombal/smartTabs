@@ -33,11 +33,19 @@
             var newValue = parseInt($('#currentFontSize').text(), 10) + 1;
             $('#currentFontSize').text(newValue);
             $('#demo2').css({'font-size': newValue + 'px' });
+            $('#demo2DecreaseButton').removeAttr('disabled');
+            if (newValue >= 40) {
+                $('#demo2IncreaseButton').attr('disabled', 'disabled');
+            }
         });
         $('#demo2DecreaseButton').click(function () {
             var newValue = parseInt($('#currentFontSize').text(), 10) - 1;
             $('#currentFontSize').text(newValue);
             $('#demo2').css({'font-size': newValue + 'px' });
+            $('#demo2IncreaseButton').removeAttr('disabled');
+            if (newValue <= 10) {
+                $('#demo2DecreaseButton').attr('disabled', 'disabled');
+            }
         });
 
 
@@ -73,7 +81,7 @@
         $('#demo4').smartTabs(prop);
         $('#demo4Reset').click(function () {
             $('#demo4').remove();
-            $('#demo4Reset').after('<div id="demo4" class="demo"></div>');
+            $('#demo4Reset').parent().after('<div id="demo4" class="demo"></div>');
             $('#demo4').smartTabs(prop);
         });
     }());
@@ -91,7 +99,7 @@
         $('#demo5').smartTabs(prop);
         $('#demo5Reset').click(function () {
             $('#demo5').remove();
-            $('#demo5Reset').after('<div id="demo5" class="demo"></div>');
+            $('#demo5Reset').parent().after('<div id="demo5" class="demo"></div>');
             $('#demo5').smartTabs(prop);
         });
     }());

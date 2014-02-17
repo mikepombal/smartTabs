@@ -1,0 +1,65 @@
+@import "elements.less";
+
+// Colours
+@bodyColor: #FFFFFF;/*#F2F2F2;*/
+@headerColor: #28364F;
+@headerBorderColor: #00708C;
+
+@sectionColor: #FAFAFB;
+@sectionTitleColor: darken(@sectionColor, 10%);
+
+
+body {
+    background-color: @bodyColor;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: @headerColor;
+    color: contrast(@headerColor);
+    font-size: 6em;
+    padding: 0.3em 0;
+    border-bottom: solid 0.1em @headerBorderColor;
+    .drop-shadow(0; 0.1em; 0.1em; 0.6);
+}
+
+.container {
+    margin-top: 4em;
+}
+
+.demoSection {
+    background-color: @sectionColor;
+    .drop-shadow(0.1em; 0.1em; 0.4em; 0.3);
+    .transition-property(box-shadow);
+
+    &:hover {
+        .drop-shadow(0.1em; 0.1em; 1em; 0.8);
+    }
+
+    & > h1 {
+        padding: 0.4em 0.6em;
+        background-color: @sectionTitleColor;
+    }
+
+    & > .sectionContent {
+        font-size: 2em;
+        padding: 0.6em;
+
+        & > pre {
+            margin-top: 0.5em;
+        }
+    }
+}
+
+.template {
+    font-size: 0.8em;
+}
+
+#myTab, .demo {
+    border: solid 1px #888888;
+
+}
+
+#demo2 {
+    font-size: 16px;
+}
