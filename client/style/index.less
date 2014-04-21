@@ -20,7 +20,6 @@ header {
     font-size: 6em;
     padding: 0.3em 0;
     border-bottom: solid 0.1em @headerBorderColor;
-    .drop-shadow(0; 0.1em; 0.1em; 0.6);
 }
 
 .container {
@@ -29,19 +28,13 @@ header {
 
 .demoSection {
     background-color: @sectionColor;
-    .drop-shadow(0.1em; 0.1em; 0.4em; 0.3);
-    .transition-property(box-shadow);
 
-    &:hover {
-        .drop-shadow(0.1em; 0.1em; 1em; 0.8);
-    }
-
-    & > h1 {
+    & > .container > h1 {
         padding: 0.4em 0.6em;
         background-color: @sectionTitleColor;
     }
 
-    & > .sectionContent {
+    & .sectionContent {
         font-size: 2em;
         padding: 0.6em;
 
@@ -49,6 +42,15 @@ header {
             margin-top: 0.5em;
         }
     }
+
+    &:nth-child(odd) {
+        background-color: darken(@sectionColor, 10%);
+
+        & > .container > h1 {
+            background-color: lighten(@sectionTitleColor, 10%)
+        }
+    }
+
 }
 
 .template {
@@ -57,6 +59,7 @@ header {
 
 #myTab, .demo {
     border: solid 1px #888888;
+    margin-bottom: 0.5em;
 
 }
 
